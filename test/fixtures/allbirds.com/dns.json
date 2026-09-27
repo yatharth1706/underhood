@@ -1,0 +1,57 @@
+{
+  "dns": {
+    "domain": "allbirds.com",
+    "cname": {
+      "www.allbirds.com": [
+        "shops.myshopify.com"
+      ]
+    },
+    "a": {
+      "allbirds.com": [
+        "23.227.38.32"
+      ],
+      "www.allbirds.com": [
+        "23.227.38.74"
+      ]
+    },
+    "txt": [
+      "MS=ms40651830",
+      "MS=ms79507765",
+      "_uwa8l4amfi15ok42t5778dbyawkrwbd",
+      "apple-domain-verification=WZou6gNEgG7pdiR8",
+      "MS=A01B077C9CEAFC03E22F0B625C7E7600E37CC59A",
+      "docusign=7de1885c-e938-41b0-9a4d-06213413de67",
+      "rippling-domain-verification=8dfc2c9c6eb0ae40",
+      "miro-verification=523f3ed99ca18d9e3f3f20bd3b408c211b7a586e",
+      "cursor-domain-verification-s064kx=qXkj1JvWlZV6ZfftmbtdKut8t",
+      "google-site-verification=Oxgc0_n5lLvPjOSSLmqXczzW6oTaRxpbpWyJk2oCQhE",
+      "google-site-verification=Ssh9THrV8wJ6yNPgNlureD3I1o1flE3HAY5mpZU27Mg",
+      "apple-domain-verification=rPC_QW6PWVkCXWYhRMY9aX1PjNUdbnEmtj6te2QSv98",
+      "v=spf1 include:allbirds_com._es.easydmarc.com include:spf.protection.outlook.com ~all"
+    ],
+    "mx": [
+      {
+        "exchange": "allbirds-com.mail.protection.outlook.com",
+        "priority": 0
+      }
+    ],
+    "ns": [
+      "ns2.markmonitor.com",
+      "ns3.markmonitor.com",
+      "ns4.markmonitor.com",
+      "ns5.markmonitor.com",
+      "ns6.markmonitor.com",
+      "ns7.markmonitor.com"
+    ],
+    "dmarc": [
+      "v=DMARC1;p=quarantine;pct=100;rua=mailto:postmaster@allbirds.com;ruf=mailto:postmaster@allbirds.com;fo=1"
+    ]
+  },
+  "asn": {
+    "ip": "23.227.38.32",
+    "asn": 13335,
+    "asName": "CLOUDFLARENET - Cloudflare, Inc., US",
+    "prefix": "23.227.38.0/23",
+    "country": "CA"
+  }
+}

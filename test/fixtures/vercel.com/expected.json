@@ -1,0 +1,38 @@
+{
+  "present": [
+    "Vercel",
+    "Vercel DNS",
+    "Next.js",
+    "React",
+    "Google Workspace",
+    "Amazon SES",
+    "Marketo",
+    "Postmark",
+    "Salesforce",
+    "SendGrid",
+    "Stripe",
+    "Mixpanel",
+    "Plain",
+    "Anthropic",
+    "Box",
+    "Cursor",
+    "DocuSign",
+    "Gather",
+    "Loom",
+    "Microsoft 365 tenant",
+    "Notion",
+    "OpenAI",
+    "Whimsical",
+    "Zoom",
+    "Ahrefs",
+    "Apple Business",
+    "Carta",
+    "DMARC Analyzer",
+    "Google Search Console",
+    "HackerOne",
+    "Remote"
+  ],
+  "absent": [
+    "Amazon Web Services"
+  ]
+}

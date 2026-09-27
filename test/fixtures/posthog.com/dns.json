@@ -1,0 +1,82 @@
+{
+  "dns": {
+    "domain": "posthog.com",
+    "cname": {
+      "www.posthog.com": [
+        "8eb78e9daddac53f.vercel-dns-016.com"
+      ]
+    },
+    "a": {
+      "posthog.com": [
+        "216.150.1.1"
+      ],
+      "www.posthog.com": [
+        "216.150.16.193",
+        "216.150.1.193"
+      ]
+    },
+    "txt": [
+      "MS=ms19564166",
+      "xmpYvq0qq2jlJ41DdaHeshLvvw",
+      "apple-domain-verification=LVLu2hGeleHVVEIh",
+      "warpstream-verification=W8ZSnRMODyyK7db-HsqH0g==",
+      "openai-domain-verification=dv-neQHJF2tLgKhhJ9cppTLIyQX",
+      "cloudflare_dashboard_sso=bf5bb621cae6f03b04deaeb95a4fbb47",
+      "anthropic-domain-verification-fk0e2j=R5tx8jvOBLON93kYQoe7azTT5",
+      "sinch-domain-verification=3b91dbc6-6227-41f1-8251-f208d684cb4b",
+      "slack-domain-verification=pJ3bCWRyJrqVBSqaEFOoL5beWxNfWUAdsHqCv7bq",
+      "google-site-verification=2aAHS6wwKXEihn7xmDkURVERdCE1Ud1oDL257IR1JEY",
+      "google-site-verification=8iSexCUhAjrq9sdND8snbBMQkxgT1uPyuLn8qMKCC3g",
+      "google-site-verification=HlrzEAPHS7VRZcGfvU39mhF86LLDPz-Nm88y6vEHSUk",
+      "google-site-verification=JnVdTQN5QXDDrPw09cSFIRwc_hkmVQgwgpyuEUe3qgg",
+      "google-site-verification=OzoiNToqd-3naAZ8v66RAlu4GFLD83oLYTAFuVkhDJw",
+      "google-site-verification=XcqIYCKBCZjObwHn5VVmsi92SLnaVx1XYruncLCUldM",
+      "google-site-verification=rV-p0xIuoSPKEOsbXiFRdpuRNAIvkmvqUCMKQdQNiQQ",
+      "google-site-verification=y_lIMB59lFcZyw-aDkPwQH04ErnkAuswbPDI48kj7NU",
+      "tiktok-developers-site-verification=lhlLSOG6nN8VhySQd9N00K8kezUO085W",
+      "zapier-domain-verification-challenge=2d19d8f3-abea-4e65-9d76-afc2cfabbea2",
+      "hubspot-developer-verification=MjAwNTY0MDEtNjg3Zi00ZDYyLWEwMmEtOWRlY2M4NGMwMWEx",
+      "hubspot-developer-verification=NmM3ZGZjOGItMTFkNC00Y2JlLTk2OGMtNWI5NGRlNWE2MTk1",
+      "hubspot-developer-verification=ZjBiZGU4ZWEtMmQzNS00YTIzLTg1NzktOWFhYmZhZWYyNGRj",
+      "stripe-verification=0758FA8B9CFF58AD6C7CA769A4CBCD1F538FD3CAE856ED865B600E0C85F8AF9C",
+      "wiz-domain-verification=3357378f04c747f632241dede60682807fdd2f1cbf17eaad4433626cadba1d34",
+      "v=spf1 include:_spf.google.com include:mail.zendesk.com include:servers.mcsv.net include:spf.mandrillapp.com include:amazonses.com include:mailgun.org -all"
+    ],
+    "mx": [
+      {
+        "exchange": "aspmx.l.google.com",
+        "priority": 1
+      },
+      {
+        "exchange": "alt1.aspmx.l.google.com",
+        "priority": 5
+      },
+      {
+        "exchange": "alt2.aspmx.l.google.com",
+        "priority": 5
+      },
+      {
+        "exchange": "alt3.aspmx.l.google.com",
+        "priority": 10
+      },
+      {
+        "exchange": "alt4.aspmx.l.google.com",
+        "priority": 10
+      }
+    ],
+    "ns": [
+      "rory.ns.cloudflare.com",
+      "julissa.ns.cloudflare.com"
+    ],
+    "dmarc": [
+      "v=DMARC1; p=quarantine; pct=100; rua=mailto:5c3ccb30d9f64b7583f458d746bd9d5a@dmarc-reports.cloudflare.net,mailto:re+ycfegpkscej@dmarc.postmarkapp.com; aspf=r; adkim=r; sp=reject;"
+    ]
+  },
+  "asn": {
+    "ip": "216.150.1.1",
+    "asn": 16509,
+    "asName": "AMAZON-02 - Amazon.com, Inc., US",
+    "prefix": "216.150.1.0/24",
+    "country": "US"
+  }
+}

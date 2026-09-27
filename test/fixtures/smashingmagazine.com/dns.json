@@ -1,0 +1,60 @@
+{
+  "dns": {
+    "domain": "smashingmagazine.com",
+    "cname": {},
+    "a": {
+      "smashingmagazine.com": [
+        "3.33.186.135",
+        "15.197.167.90"
+      ],
+      "www.smashingmagazine.com": [
+        "3.33.186.135",
+        "15.197.167.90"
+      ]
+    },
+    "txt": [
+      "google-site-verification=e2dLL9LD1Z_jpCFp6BTtGMlu42BGc8ugnf_midmUIlk",
+      "v=spf1 include:_spf.google.com include:servers.mcsv.net include:spf.mandrillapp.com include:em4186.swell.store -all",
+      "google-site-verification=X5sd8PEDJqYLSR98RKgSozn-0RNpknXFlGoA-UXe5K0",
+      "google-site-verification=0robA8kpiXkVEX1ts-_xCYWRkXleQJpwyN_BYQYOX54"
+    ],
+    "mx": [
+      {
+        "exchange": "alt4.aspmx.l.google.com",
+        "priority": 10
+      },
+      {
+        "exchange": "alt3.aspmx.l.google.com",
+        "priority": 10
+      },
+      {
+        "exchange": "alt2.aspmx.l.google.com",
+        "priority": 5
+      },
+      {
+        "exchange": "alt1.aspmx.l.google.com",
+        "priority": 5
+      },
+      {
+        "exchange": "aspmx.l.google.com",
+        "priority": 1
+      }
+    ],
+    "ns": [
+      "dns1.p06.nsone.net",
+      "dns2.p06.nsone.net",
+      "dns3.p06.nsone.net",
+      "dns4.p06.nsone.net"
+    ],
+    "dmarc": [
+      "v=DMARC1;p=reject;sp=reject;pct=100;rua=mailto:22c84bb25c@rua.easydmarc.eu;ruf=mailto:22c84bb25c@ruf.easydmarc.eu;ri=86400;fo=1"
+    ]
+  },
+  "asn": {
+    "ip": "3.33.186.135",
+    "asn": 16509,
+    "asName": "AMAZON-02 - Amazon.com, Inc., US",
+    "prefix": "3.33.176.0/20",
+    "country": "US"
+  }
+}

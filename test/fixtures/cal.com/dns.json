@@ -1,0 +1,67 @@
+{
+  "dns": {
+    "domain": "cal.com",
+    "cname": {},
+    "a": {
+      "cal.com": [
+        "104.18.1.62",
+        "104.18.0.62"
+      ],
+      "www.cal.com": [
+        "104.18.1.62",
+        "104.18.0.62"
+      ]
+    },
+    "txt": [
+      "MS=ms14963960",
+      "MS=ms52513678",
+      "MS=ms56097149",
+      "MS=ms98316148",
+      "WP41PVdUGcSPtY_ZzVehPm73J0E",
+      "apple-domain-verification=BWqXqkqcByIoJVFD",
+      "asv=4a2ed4b7d84c58fa042be983b359aea7",
+      "cloudflare_dashboard_sso=fe7359c438ef1489671b4153ae275615",
+      "google-site-verification=ERZRBFsAZod6YY2WsYOsXCN2QTXsLAkqPluhPAWZORY",
+      "google-site-verification=y4NVaLzvuBemkMk20Hqr6xu6iHa-UFDrbJg0pgPtG_Y",
+      "hubspot-developer-verification=MTUwNGIzOWYtYmYwMS00Y2IyLTg5YmEtNzEyZTU3NjczMGVj",
+      "openai-domain-verification=dv-2vLkO8g4fGLTXFv0O86S4VGh",
+      "v=spf1 include:_spf.google.com include:sendgrid.net -all"
+    ],
+    "mx": [
+      {
+        "exchange": "aspmx.l.google.com",
+        "priority": 1
+      },
+      {
+        "exchange": "alt3.aspmx.l.google.com",
+        "priority": 10
+      },
+      {
+        "exchange": "alt4.aspmx.l.google.com",
+        "priority": 10
+      },
+      {
+        "exchange": "alt1.aspmx.l.google.com",
+        "priority": 5
+      },
+      {
+        "exchange": "alt2.aspmx.l.google.com",
+        "priority": 5
+      }
+    ],
+    "ns": [
+      "carter.ns.cloudflare.com",
+      "linda.ns.cloudflare.com"
+    ],
+    "dmarc": [
+      "v=DMARC1; p=quarantine; rua=mailto:b71127b2@mxtoolbox.dmarc-report.com; ruf=mailto:b71127b2@forensics.dmarc-report.com; fo=1"
+    ]
+  },
+  "asn": {
+    "ip": "104.18.1.62",
+    "asn": 13335,
+    "asName": "CLOUDFLARENET - Cloudflare, Inc., US",
+    "prefix": "104.18.0.0/20",
+    "country": "US"
+  }
+}

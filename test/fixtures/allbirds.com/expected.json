@@ -1,0 +1,18 @@
+{
+  "present": [
+    "Cloudflare",
+    "Shopify",
+    "Microsoft 365",
+    "Google Tag Manager",
+    "Cursor",
+    "DocuSign",
+    "Microsoft 365 tenant",
+    "Miro",
+    "Apple Business",
+    "Google Search Console",
+    "Rippling"
+  ],
+  "absent": [
+    "Google Workspace"
+  ]
+}

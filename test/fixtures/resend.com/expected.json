@@ -1,0 +1,20 @@
+{
+  "present": [
+    "Vercel",
+    "Amazon Route 53",
+    "Next.js",
+    "Google Workspace",
+    "Stripe",
+    "Plain",
+    "Anthropic",
+    "Linear",
+    "Notion",
+    "Postman",
+    "Apple Business",
+    "dmarcian",
+    "Google Search Console"
+  ],
+  "absent": [
+    "Amazon Web Services"
+  ]
+}

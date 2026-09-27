@@ -1,0 +1,41 @@
+{
+  "requestedUrl": "https://vercel.com/",
+  "finalUrl": "https://vercel.com/",
+  "status": 200,
+  "redirects": [],
+  "headers": {
+    "accept-ch": "Sec-CH-Prefers-Color-Scheme",
+    "age": "516",
+    "cache-control": "public, max-age=0, must-revalidate",
+    "content-security-policy": "default-src 'self' vercel.com *.vercel.com assets.vercel.com *.vercel.sh vercel.live wss://*.vercel.com *.codesandbox.io localhost:* chrome-extension://* https://www.youtube-nocookie.com https://risk.clearbit.com https://react-tweet.vercel.app/*;script-src 'self' 'unsafe-eval' 'unsafe-inline' 'inline-speculation-rules' https://snap.licdn.com https://www.youtube.com cdn.vercel-insights.com va.vercel-scripts.com vercel.com *.vercel.com assets.vercel.com *.vercel.sh vercel.live wss://*.vercel.com *.codesandbox.io localhost:* chrome-extension://* https://www.youtube-nocookie.com https://risk.clearbit.com https://react-tweet.vercel.app/* cdp.vercel.com;style-src 'self' 'unsafe-inline' vercel.com *.vercel.com assets.vercel.com *.vercel.sh vercel.live wss://*.vercel.com *.codesandbox.io localhost:* chrome-extension://* https://www.youtube-nocookie.com https://risk.clearbit.com https://react-tweet.vercel.app/*;img-src 'self' blob: data: *.github.io avatars.githubusercontent.com user-images.githubusercontent.com vercel.com vercel.live *.vercel.sh assets.vercel.com cdn.raster.app https://images.ctfassets.net https://www.google.com https://i.ytimg.com https://s3.amazonaws.com pbs.twimg.com https://www.gravatar.com https://lishhsx6kmthaacj.public.blob.vercel-storage.com https://fvqcrhkhgatlyl2m.public.blob.vercel-storage.com;media-src 'self' blob: data: vercel.com *.vercel.com assets.vercel.com *.vercel.sh vercel.live wss://*.vercel.com *.codesandbox.io localhost:* chrome-extension://* https://www.youtube-nocookie.com https://risk.clearbit.com https://react-tweet.vercel.app/*;connect-src 'self' data: *.ingest.sentry.io *.ingest.us.sentry.io wss://ws-us3.pusher.com sockjs-use3.pusher.com react-tweet.vercel.app https://*.contentful.com www.vercel-status.com unpkg.com vercel.com *.vercel.com assets.vercel.com *.vercel.sh vercel.live wss://*.vercel.com *.codesandbox.io localhost:* chrome-extension://* https://www.youtube-nocookie.com https://risk.clearbit.com https://react-tweet.vercel.app/* cdp.vercel.com;font-src 'self' vercel.com assets.vercel.com vercel.live fonts.gstatic.com *.vercel.sh;frame-ancestors  'self'  https://vercel.com  https://app.contentful.com  https://*.contentful.com  https://*.vercel.sh  https://*.vercel.com",
+    "content-type": "text/html; charset=utf-8",
+    "critical-ch": "Sec-CH-Prefers-Color-Scheme",
+    "date": "Sun, 27 Sep 2026 12:17:16 GMT",
+    "etag": "\"16j2h55v5iddig9\"",
+    "feature-policy": "fullscreen 'self'; camera 'none'",
+    "link": "</.well-known/api-catalog>; rel=\"api-catalog\", </.well-known/ai-catalog.json>; rel=\"ai-catalog\"; type=\"application/ai-catalog+json\", </.well-known/agent-skills/index.json>; rel=\"agent-skills\"; type=\"application/json\"",
+    "referrer-policy": "origin-when-cross-origin",
+    "server": "Vercel",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "x-content-type-options": "nosniff",
+    "x-dns-prefetch-control": "on",
+    "x-download-options": "noopen",
+    "x-frame-options": "DENY",
+    "x-matched-path": "/precomputed/exp~-empty-/home/eyJhbGciOiJIUzI1NiJ9.Af39.HiggoUXvmLu7osIZ-rMgWYCutUna7fynJKQRarwrMT8/redesign-2026",
+    "x-nextjs-prerender": "1",
+    "x-nextjs-stale-time": "300",
+    "x-pathname": "/",
+    "x-powered-by": "Next.js, Payload",
+    "x-vercel-cache": "HIT",
+    "x-vercel-id": "bom1::iad1::2lt98-1790511954504-93d651391c33",
+    "x-xss-protection": "0",
+    "content-length": "630527"
+  },
+  "cookieNames": [
+    "_v-consent",
+    "_v-visitor-id",
+    "_v-visitor-id-renewed"
+  ],
+  "truncated": false
+}

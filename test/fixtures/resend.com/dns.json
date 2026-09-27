@@ -1,0 +1,75 @@
+{
+  "dns": {
+    "domain": "resend.com",
+    "cname": {
+      "www.resend.com": [
+        "cname.vercel-dns.com"
+      ]
+    },
+    "a": {
+      "resend.com": [
+        "76.76.21.22"
+      ],
+      "www.resend.com": [
+        "76.76.21.142",
+        "66.33.60.66"
+      ]
+    },
+    "txt": [
+      "OSSRH-89476",
+      "anthropic-domain-verification-eg6zmc=GUL1nibiemWkI0ed7xBdqCp2f",
+      "apple-domain-verification=jSjlmZKPbN4Y6q0RpeZlG9u91rnz7u0I3Sd7Md_PuKQ",
+      "attio-domain-verification=7XYY0BH19JB7PWPBG2QQZNZW",
+      "google-site-verification=CUET3Yw2VhI0haxJZ1IfCqDGJyHQVngs3WhrYoFnths",
+      "google-site-verification=XKBn7AaBJgpvdcnqOK8y8HbZicAN-fK0qQVe7UuHDog",
+      "google-site-verification=jSfnPpFeszYPlj5Q9mzrLybG4R30fN5wDk--zX_BH8c",
+      "linear-domain-verification=6x2ex3xu3sby",
+      "liveblocks-domain-verification-7rmx1s=u11g5XpvS48xi86ZLB6Xr20uM",
+      "notion-domain-verification=Z2gCKFyNMpCuoBrnJwskSbxzBRs7JU0FxCaaSEyLEp",
+      "plain-domain-verification-jem2yq=VfD1HVint29eO4Um5B0NypRuO",
+      "postman-domain-verification=82abfa6892faf4a9b4e83e0e1a1b3c5ead515575a566fbad5a27ad31bc72abedbf1b3f2a6dc82fe1a893a0915dfa4fe5648543a1ea757147f9466cc7bdd9db07",
+      "stripe-verification=16C3C760921B18BCB71972A1EEA54E9E99CBB125AE86D2B879B09CF620BA5723",
+      "tito-domain-verification=42pvdflprxbuja49kz2d5q7nh",
+      "v=spf1 include:_spf.google.com ~all",
+      "work-os-domain-verification-1apksg=ofkmaD1jzoHOE82Tnc5xIS72A"
+    ],
+    "mx": [
+      {
+        "exchange": "aspmx.l.google.com",
+        "priority": 1
+      },
+      {
+        "exchange": "alt3.aspmx.l.google.com",
+        "priority": 10
+      },
+      {
+        "exchange": "alt4.aspmx.l.google.com",
+        "priority": 10
+      },
+      {
+        "exchange": "alt1.aspmx.l.google.com",
+        "priority": 5
+      },
+      {
+        "exchange": "alt2.aspmx.l.google.com",
+        "priority": 5
+      }
+    ],
+    "ns": [
+      "ns-1017.awsdns-63.net",
+      "ns-1047.awsdns-02.org",
+      "ns-1910.awsdns-46.co.uk",
+      "ns-399.awsdns-49.com"
+    ],
+    "dmarc": [
+      "v=DMARC1; p=reject; pct=100; rua=mailto:ozsm6m1q@ag.us.dmarcian.com,mailto:dmarcreports@resend.com; ruf=mailto:ozsm6m1q@fr.us.dmarcian.com; fo=1;"
+    ]
+  },
+  "asn": {
+    "ip": "76.76.21.22",
+    "asn": 16509,
+    "asName": "AMAZON-02 - Amazon.com, Inc., US",
+    "prefix": "76.76.21.0/24",
+    "country": "US"
+  }
+}

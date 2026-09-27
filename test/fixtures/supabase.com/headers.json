@@ -1,0 +1,28 @@
+{
+  "requestedUrl": "https://supabase.com/",
+  "finalUrl": "https://supabase.com/",
+  "status": 200,
+  "redirects": [],
+  "headers": {
+    "accept-ranges": "bytes",
+    "access-control-allow-origin": "*",
+    "age": "118403",
+    "cache-control": "public, max-age=0, must-revalidate",
+    "content-disposition": "inline",
+    "content-type": "text/html; charset=utf-8",
+    "date": "Sun, 27 Sep 2026 12:26:01 GMT",
+    "etag": "\"89e4708f94c8c9d3f1721c8b8bb0834f\"",
+    "link": "</.well-known/api-catalog>; rel=\"api-catalog\"",
+    "server": "Vercel",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "x-matched-path": "/",
+    "x-nextjs-prerender": "1",
+    "x-nextjs-stale-time": "300",
+    "x-vercel-cache": "HIT",
+    "x-vercel-id": "bom1::9728q-1790511961698-46b7d54a3429",
+    "content-length": "1355382"
+  },
+  "cookieNames": [],
+  "truncated": false
+}

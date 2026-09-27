@@ -1,0 +1,17 @@
+{
+  "present": [
+    "Netlify",
+    "NS1",
+    "Google Workspace",
+    "Mailchimp",
+    "Mandrill",
+    "Google Analytics",
+    "EasyDMARC",
+    "Google Search Console"
+  ],
+  "absent": [
+    "Google Tag Manager",
+    "Vercel",
+    "Cloudflare"
+  ]
+}

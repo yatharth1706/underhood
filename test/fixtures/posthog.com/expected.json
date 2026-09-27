@@ -1,0 +1,33 @@
+{
+  "present": [
+    "Vercel",
+    "Cloudflare DNS",
+    "Gatsby",
+    "React",
+    "Google Workspace",
+    "Amazon SES",
+    "Mailchimp",
+    "Mailgun",
+    "Mandrill",
+    "Stripe",
+    "Zendesk",
+    "Anthropic",
+    "Cloudflare dashboard SSO",
+    "Microsoft 365 tenant",
+    "OpenAI",
+    "Slack",
+    "Zapier",
+    "Apple Business",
+    "Google Search Console",
+    "HubSpot",
+    "Postmark DMARC",
+    "Sinch",
+    "TikTok for Developers",
+    "WarpStream",
+    "Wiz"
+  ],
+  "absent": [
+    "Naver Analytics",
+    "Amazon Web Services"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "present": [
+    "Cloudflare",
+    "Framer",
+    "Cloudflare DNS",
+    "Google Workspace",
+    "SendGrid",
+    "Google Tag Manager",
+    "Cloudflare dashboard SSO",
+    "Microsoft 365 tenant",
+    "OpenAI",
+    "Apple Business",
+    "Google Search Console",
+    "HubSpot",
+    "MxToolbox"
+  ],
+  "absent": [
+    "Amazon Web Services",
+    "Next.js"
+  ]
+}

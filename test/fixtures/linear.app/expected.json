@@ -1,0 +1,32 @@
+{
+  "present": [
+    "Cloudflare",
+    "Google Cloud CDN",
+    "Cloudflare DNS",
+    "Next.js",
+    "Google Workspace",
+    "Amazon SES",
+    "HubSpot",
+    "Postmark",
+    "Stripe",
+    "LaunchDarkly",
+    "Anthropic",
+    "Cursor",
+    "DocuSign",
+    "Linear",
+    "Microsoft 365 tenant",
+    "Notion",
+    "OpenAI",
+    "Slack",
+    "Zoom",
+    "Apple Business",
+    "Google Search Console",
+    "MongoDB Atlas",
+    "Postmark DMARC",
+    "Rippling"
+  ],
+  "absent": [
+    "Microsoft 365",
+    "HSTS"
+  ]
+}

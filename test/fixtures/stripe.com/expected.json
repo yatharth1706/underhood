@@ -1,0 +1,32 @@
+{
+  "present": [
+    "Amazon Web Services",
+    "Fastly",
+    "Vercel",
+    "Amazon Route 53",
+    "Next.js",
+    "Google Workspace",
+    "Stripe",
+    "Anthropic",
+    "Atlassian",
+    "Canva",
+    "Cursor",
+    "Docker",
+    "DocuSign",
+    "ElevenLabs",
+    "Linear",
+    "Microsoft 365 tenant",
+    "OpenAI",
+    "Postman",
+    "Whimsical",
+    "Apple Business",
+    "Google Search Console",
+    "HackerOne",
+    "LiveRamp",
+    "Meta Business",
+    "Qualtrics"
+  ],
+  "absent": [
+    "Microsoft 365"
+  ]
+}

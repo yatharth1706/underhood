@@ -1,0 +1,72 @@
+{
+  "dns": {
+    "domain": "linear.app",
+    "cname": {},
+    "a": {
+      "linear.app": [
+        "104.18.40.45",
+        "172.64.147.211"
+      ],
+      "www.linear.app": [
+        "172.64.147.211",
+        "104.18.40.45"
+      ]
+    },
+    "txt": [
+      "MS=ms43041516",
+      "ZOOM_verify_rSExBwd4QT2vT9dfq9-UrA",
+      "_qcd9zztuukbep051izx2pjssdl6yae2",
+      "anthropic-domain-verification-7emk8z=c8SuvlXPqgxzVcvjsiQ00cLfO",
+      "apple-domain-verification=zVdJnsxkD6nX5XCL",
+      "cursor-domain-verification-jkgerh=fYGswH2He0dJj0DekVjoNvFKi",
+      "docusign=9bc6c7a7-fde1-48af-bcc3-11f14e980549",
+      "domain-verification=0b7a143e64a100eeb18d7e29c53d3bcf83746f87607ac1f1b6aef8802ad5439d",
+      "google-site-verification=-TwiLtawzz8QlL_LZlkuGibc6klzAuD0DfgytD0TM0g",
+      "google-site-verification=4am7F1KUGPoMFePO3xuz4Eek80WH7im3c9UeedE10pA",
+      "google-site-verification=mFdMlamOogHV4U7WGNYRd55OvljoEx7M_wgpb7zHzfo",
+      "launchdarkly-domain-verification=f702791b-ddb9-496f-80f1-df7499632973",
+      "linear-domain-verification=391958",
+      "mongodb-site-verification=DkQRVTZWWUX0i14d4YZddicK0SF4Qc1L",
+      "notion-domain-verification=WyZnKX70mlPP1r1HchqL7re1MjaYo5c2F2Cy2R2z3XD",
+      "notion-domain-verification=YflTDyf5nncjFK4D85Nsh38ufawi0ExsoOTUzXu9NpT",
+      "openai-domain-verification=dv-cF94uxiJMGTKa374p6jJD0zU",
+      "rippling-domain-verification=806196fd264819a7",
+      "slack-domain-verification=n9BI0EJf0vSJO9ugqYmWNJ5xbOOVQnnTirCGbRZK",
+      "stripe-verification=6EC2FC42DC487CF290EEEE12F5DEE9914E0186EF7BF33C1B6AEB7DD8B643CE80",
+      "v=MCPv1; k=ed25519; p=kK/pbugEO5TjSy0dXhqbUMJ0v+5eCO8osDkDeccICp4=",
+      "v=spf1 include:_spf.google.com include:spf.mtasv.net include:44092442.spf10.hubspotemail.net include:amazonses.com ~all"
+    ],
+    "mx": [
+      {
+        "exchange": "aspmx.l.google.com",
+        "priority": 1
+      },
+      {
+        "exchange": "alt3.aspmx.l.google.com",
+        "priority": 10
+      },
+      {
+        "exchange": "alt1.aspmx.l.google.com",
+        "priority": 5
+      },
+      {
+        "exchange": "alt2.aspmx.l.google.com",
+        "priority": 5
+      }
+    ],
+    "ns": [
+      "tim.ns.cloudflare.com",
+      "zara.ns.cloudflare.com"
+    ],
+    "dmarc": [
+      "v=DMARC1; p=reject; rua=mailto:re+1790296a475d@inbound.dmarcdigests.com; aspf=r; pct=100"
+    ]
+  },
+  "asn": {
+    "ip": "104.18.40.45",
+    "asn": 13335,
+    "asName": "CLOUDFLARENET - Cloudflare, Inc., US",
+    "prefix": "104.18.40.0/24",
+    "country": "US"
+  }
+}

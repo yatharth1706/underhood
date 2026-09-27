@@ -1,0 +1,29 @@
+{
+  "present": [
+    "WordPress VIP",
+    "Cloudflare DNS",
+    "Microsoft 365",
+    "HubSpot",
+    "Google Tag Manager",
+    "Sailthru",
+    "Zendesk",
+    "Airtable",
+    "Anthropic",
+    "Atlassian",
+    "DocuSign",
+    "Dropbox",
+    "Figma",
+    "Microsoft 365 tenant",
+    "OpenAI",
+    "Apple Business",
+    "DMARC Analyzer",
+    "Google Search Console",
+    "Mimecast",
+    "WordPress",
+    "WordPress Block Editor",
+    "WordPress Site Editor"
+  ],
+  "absent": [
+    "Google Workspace"
+  ]
+}

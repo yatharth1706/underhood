@@ -1,26 +1,104 @@
-@import "tailwindcss";
+/* Explicit sources: auto-detection would also scan test/fixtures/*.html (other sites' markup). */
+@import "tailwindcss" source(none);
+@source "../app";
+@source "../components";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --paper: #f3f1ea;
+  --paper-2: #ebe8df;
+  --ink: #141413;
+  --muted: #6a665d;
+  --rule: #cdc8bc;
+  --rule-strong: #141413;
+  --accent: #c93c0c;
+  --high: #1d6b3a;
+  --medium: #8a6d12;
+  --low: #7a756b;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --paper: #131312;
+    --paper-2: #1b1b19;
+    --ink: #ebe8e0;
+    --muted: #97928a;
+    --rule: #34322e;
+    --rule-strong: #ebe8e0;
+    --accent: #ff6d33;
+    --high: #5cc27f;
+    --medium: #d9b54a;
+    --low: #8f8a80;
   }
 }
 
+:root[data-theme="dark"] {
+  --paper: #131312;
+  --paper-2: #1b1b19;
+  --ink: #ebe8e0;
+  --muted: #97928a;
+  --rule: #34322e;
+  --rule-strong: #ebe8e0;
+  --accent: #ff6d33;
+  --high: #5cc27f;
+  --medium: #d9b54a;
+  --low: #8f8a80;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-accent: var(--accent);
+  --color-high: var(--high);
+  --color-medium: var(--medium);
+  --color-low: var(--low);
+  --font-sans: var(--font-grotesk);
+  --font-mono: var(--font-plex-mono);
+}
+
+html {
+  background: var(--paper);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+/* Small-caps style mono label used for section headers and table heads. */
+.label {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .chev {
+  transform: rotate(90deg);
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }

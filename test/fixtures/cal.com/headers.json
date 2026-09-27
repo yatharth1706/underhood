@@ -1,0 +1,26 @@
+{
+  "requestedUrl": "https://cal.com/",
+  "finalUrl": "https://cal.com/",
+  "status": 200,
+  "redirects": [],
+  "headers": {
+    "date": "Sun, 27 Sep 2026 12:25:58 GMT",
+    "content-type": "text/html",
+    "cf-ray": "a41a7e7b89146080-DEL",
+    "cf-cache-status": "DYNAMIC",
+    "cache-control": "public, max-age=0, must-revalidate",
+    "etag": "W/\"8c3f811f8da4b7ab341d9b96e7b17b4f\"",
+    "last-modified": "Fri, 25 Sep 2026 15:44:26 GMT",
+    "link": "<https://framerusercontent.com>; rel=\"preconnect\", <https://framerusercontent.com>; rel=\"preconnect\"; crossorigin=\"\"",
+    "server": "cloudflare",
+    "strict-transport-security": "max-age=31536000",
+    "vary": "Accept-Encoding, Accept",
+    "framer-site-id": "bc7227767b20f032f6b0c5eca6d5f196207f19e615b861e2b14cd0579a235b43",
+    "server-timing": "region;desc=\"ap-south-1\", cache;desc=\"cached\", ssg-status;desc=\"optimized\", version;desc=\"26fa766\", instance;desc=\"c1bd7a7\", route;dur=1;desc=\"id=v7M7xdOQx&locale=default\", country;desc=\"IN\", ss-only-routes",
+    "x-content-type-options": "nosniff"
+  },
+  "cookieNames": [
+    "__cf_bm"
+  ],
+  "truncated": true
+}

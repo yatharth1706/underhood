@@ -1,0 +1,72 @@
+{
+  "dns": {
+    "domain": "techcrunch.com",
+    "cname": {
+      "www.techcrunch.com": [
+        "techcrunch.com"
+      ]
+    },
+    "a": {
+      "techcrunch.com": [
+        "192.0.66.220"
+      ],
+      "www.techcrunch.com": [
+        "192.0.66.220"
+      ]
+    },
+    "txt": [
+      "0ed1fe018a18c01fd51bff49e5bd633fade441856b",
+      "134052hpsyz5k73sv39m0sgxljsqyls7",
+      "MS=ms36891426",
+      "MS=ms48927658",
+      "_globalsign-domain-verification=esDvs5Msz39F5o97VaHcZxyKR4A6NPHRpuo9du1Tro",
+      "airtable-verification=e989fdaedddc09c0e5c782dd036dd08a",
+      "anthropic-domain-verification-bqkhj4=U4gt2pxQQDf0aqgfPI3Q8Uvtp",
+      "apple-domain-verification=uzwfq0Ev591PKKS6",
+      "atlassian-domain-verification=4p4CB0YJGNxskcxmubnX/fKvtqP6u8KRknplzFR3ZsH8zcSfjqtxNyCNIIktcAch",
+      "b42c6b9e-33ca-44c0-a919-3152d6b3ddfa",
+      "docusign=1ad1e6cd-4dfe-4b34-8689-5797102f132e",
+      "dropbox-domain-verification=sh3f8kienale",
+      "figma-domain-verification=774a69a105d2f08bc9290464cb7082210e1fe77d9a4aa86a50e29eb75501b33d-1787841662",
+      "fireflies-verification=01KRNDX9V0J96ERQ2TKYCJ2M27.ffverify.fireflies.ai-request-verification=2026-05-15T09:01:35Z",
+      "google-site-verification=8tVHhkiXUNoPjI09EcLgjl9V7TwSXxLV0bnIjcEmpFw",
+      "google-site-verification=DhlHJ_81bZLsrh5TLvK7ac04EG4QvEAa8hjtsiMpUTQ",
+      "google-site-verification=HgtRMjw2Jm4kQso_oGLMcQ7ndEv8wNcGa0Kquhm9KK0",
+      "google-site-verification=JJNsJJsmpgH6VoKlFj7qG9V223pIrsduvb7qQ31GNC0",
+      "google-site-verification=KsXJcvhk00hppwpZ3oNMk0GzB9M2GFUxA7XjdRVpc1U",
+      "google-site-verification=NgMXk6BZ-jqt9XTrgnGt_O7hY4xD-NEAWsfSSD2VuZQ",
+      "google-site-verification=VZcuQE1gCO7Zg1W2g_uzOzDXXICzPt74_eE-w0SRpt4",
+      "google-site-verification=nTM39ZyyvRHb2-jcX__j5Hp1-y9zCw_gwX_I-QYrnVo",
+      "knowbe4-site-verification=bc3830115833f4f956e30f506f1da8c8",
+      "openai-domain-verification=dv-NrFR5wvpHqoGtf07m6oIH3J1",
+      "slido-domain-verification=87b6e1fe-2406-444f-90df-2cd87a594a34",
+      "v=spf1 a mx include:usb._netblocks.mimecast.com include:spf.protection.outlook.com include:aspmx.sailthru.com include:mail.zendesk.com include:242234635.spf02.hubspotemail.net -all",
+      "yahoo-verification-key=nBRGLDZQzTUnUA7c6taNupK6RrG3ZGZs0PjHJmWAkqM=",
+      "zeplin"
+    ],
+    "mx": [
+      {
+        "exchange": "usb-smtp-inbound-1.mimecast.com",
+        "priority": 0
+      },
+      {
+        "exchange": "usb-smtp-inbound-2.mimecast.com",
+        "priority": 0
+      }
+    ],
+    "ns": [
+      "elly.ns.cloudflare.com",
+      "gordon.ns.cloudflare.com"
+    ],
+    "dmarc": [
+      "v=DMARC1; p=reject; rua=mailto:6cc97f5d2993594@rep.dmarcanalyzer.com; ruf=mailto:6cc97f5d2993594@for.dmarcanalyzer.com; fo=1;"
+    ]
+  },
+  "asn": {
+    "ip": "192.0.66.220",
+    "asn": 2635,
+    "asName": "AUTOMATTIC - Automattic, Inc, US",
+    "prefix": "192.0.66.0/24",
+    "country": "US"
+  }
+}

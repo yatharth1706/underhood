@@ -1,0 +1,58 @@
+{
+  "dns": {
+    "domain": "supabase.com",
+    "cname": {},
+    "a": {
+      "supabase.com": [
+        "216.150.1.193"
+      ],
+      "www.supabase.com": [
+        "172.64.145.26",
+        "104.18.42.230"
+      ]
+    },
+    "txt": [
+      "ZOOM_verify_LkQKLCEOSZMkt2ZfWZsQoF",
+      "google-site-verification=LvTSpLp-EquMSIYv-4caP8Rln0kqiVgXMfZT5jOA_Ro",
+      "google-site-verification=iZqSVmPnujGxdyqGRFI5cKMrdHUL8zIR_GcLd8D2XiA",
+      "google-site-verification=ouqZams1dXBRlKsMoYhfaKk02ciAP_LnSrDLXznbasc",
+      "v=spf1 include:_spf.google.com include:19953346.spf06.hubspotemail.net ~all"
+    ],
+    "mx": [
+      {
+        "exchange": "aspmx.l.google.com",
+        "priority": 1
+      },
+      {
+        "exchange": "alt3.aspmx.l.google.com",
+        "priority": 10
+      },
+      {
+        "exchange": "alt4.aspmx.l.google.com",
+        "priority": 10
+      },
+      {
+        "exchange": "alt1.aspmx.l.google.com",
+        "priority": 5
+      },
+      {
+        "exchange": "alt2.aspmx.l.google.com",
+        "priority": 5
+      }
+    ],
+    "ns": [
+      "christina.ns.cloudflare.com",
+      "neil.ns.cloudflare.com"
+    ],
+    "dmarc": [
+      "v=DMARC1; p=reject; pct=100; rua=mailto:re+dgebavkwb5w@inbound.dmarcdigests.com; ruf=mailto:team-growth-eng@supabase.com; fo=1; sp=quarantine; aspf=r;"
+    ]
+  },
+  "asn": {
+    "ip": "216.150.1.193",
+    "asn": 16509,
+    "asName": "AMAZON-02 - Amazon.com, Inc., US",
+    "prefix": "216.150.1.0/24",
+    "country": "US"
+  }
+}

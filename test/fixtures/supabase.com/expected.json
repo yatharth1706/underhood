@@ -1,0 +1,15 @@
+{
+  "present": [
+    "Vercel",
+    "Cloudflare DNS",
+    "Next.js",
+    "Google Workspace",
+    "HubSpot",
+    "Zoom",
+    "Google Search Console",
+    "Postmark DMARC"
+  ],
+  "absent": [
+    "Amazon Web Services"
+  ]
+}

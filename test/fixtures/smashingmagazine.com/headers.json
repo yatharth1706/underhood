@@ -1,0 +1,30 @@
+{
+  "requestedUrl": "https://smashingmagazine.com/",
+  "finalUrl": "https://www.smashingmagazine.com/",
+  "status": 200,
+  "redirects": [
+    "https://www.smashingmagazine.com/"
+  ],
+  "headers": {
+    "accept-ranges": "bytes",
+    "age": "2",
+    "cache-control": "No-Cache",
+    "cache-status": "\"Netlify Edge\"; fwd=stale; fwd-status=200; stored",
+    "content-type": "text/html; charset=UTF-8",
+    "date": "Sun, 27 Sep 2026 12:36:01 GMT",
+    "etag": "\"067d437a3d61eae418c74a992152d447-ssl\"",
+    "link": "<https://d33wubrfki0l68.cloudfront.net>; rel=preconnect; crossorigin",
+    "netlify-vary": "query",
+    "referrer-policy": "no-referrer-when-downgrade",
+    "server": "Netlify",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "vary": "Accept-Encoding",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "SAMEORIGIN",
+    "x-nf-request-id": "01M3HDTY41RDCHXXYYX9PH63S8",
+    "x-xss-protection": "1",
+    "content-length": "296027"
+  },
+  "cookieNames": [],
+  "truncated": false
+}

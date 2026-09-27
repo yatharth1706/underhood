@@ -1,0 +1,89 @@
+{
+  "dns": {
+    "domain": "vercel.com",
+    "cname": {},
+    "a": {
+      "vercel.com": [
+        "64.239.109.129",
+        "64.239.109.193"
+      ],
+      "www.vercel.com": [
+        "64.239.123.129",
+        "64.239.123.65"
+      ]
+    },
+    "txt": [
+      "google-site-verification=J9NjkBE_oybWpa-OHAkV0VjSjIvIBMfp83tdsQCzxK8",
+      "v=spf1 include:_netblocks.google.com include:_netblocks2.google.com include:_netblocks3.google.com include:mktomail.com include:amazonses.com include:sendgrid.net include:_spf.salesforce.com include:spf.mtasv.net ~all",
+      "doordash-verification=kA2ozHfLLU2lEpqQVmJO7DRKwZArKO",
+      "ahrefs-site-verification_774361e47cac589ba5ff743f90399b1e5792980bd22f0f4c56bfb1eaf571a7e0",
+      "stripe-verification=8ff198a026ba2920fd8f4e45bcc499573d1a342596c6f0f18f3eae226bb8173a",
+      "apple-domain-verification=80dYVZTf3bf7C8H5",
+      "ZOOM_verify_iAqiiWW1TdK-GwbJI7qn1g",
+      "stripe-verification=923c7c6074dc94f4b22136b4236a1dc5433a3276b5fc981799771f781d7a6058",
+      "stripe-verification=69ef655819f74eb6f93f9f7388273112ee8c2439b35502785239d3bf076af574",
+      "MS=ms81951275",
+      "mixpanel-domain-verify=3069307c-7d73-4581-880a-1b61267d06cb",
+      "C575019D1B",
+      "SFMC-JchuOOQGseLonwnFdKq2xDV5UnqnvJRjMKyh7rwz",
+      "loom-verification=5698251381",
+      "notion_verify_82^tYP%}6Q65dbszXu>V?@~stLe]Cm3Dmn8rqe7DZgT1m3o!+PyEbv+Jx04rb%v67BtbG>",
+      "docusign=589bb007-2665-4084-b839-9874df0da0cf",
+      "docusign=8a27eabb-2ba5-4820-a148-36b0ac9f592b",
+      "h1-domain-verification=DmNbUeH65JZUKDLixLxWCEfvFiJcCP6sSR3ymQ3MamqmMN2K",
+      "_saml-domain-challenge=1b4981f2-76a2-401f-8f09-a261a97099af",
+      "whimsical=34ebc92242a47d7e9a6ae5f42f60ad80fccbf094",
+      "_visual-studio-marketplace-vercel.vercel.com:4fe5630e-b256-4d57-9e03-88abeab96b37",
+      "openai-domain-verification=dv-RrobMXwsu06yBo22YAOsZdxP",
+      "stripe-verification=e6c56a2c1de7a8a001d69362c33e8ee39536606dae859f9e5fef982ecd102696",
+      "stripe-verification=D353787AECFE3E8DF14A07DF171A7A0529DB83B8D7CD0C5FD89A9C42A255E38E",
+      "cursor-domain-verification-f3eygw=YMP9VK0KY2xhJrRKFMpkkyhv1",
+      "_k57cawuboit4hp2k6rv5bjbxuvkznwp",
+      "anthropic-domain-verification-08hmep=rIoWryrKgeXgTzXsASQqNA99q",
+      "remote-domain-verification=8be9341d-2ab7-4de7-a26f-68c6af2b30ac",
+      "box-domain-verification=968b9e475ce3f9a3bf3a2436eed2cd67082d8312f5e6559eaa7e1d1514fe03aa",
+      "v=MCPv1; k=ed25519; p=53H31Wxaf08fBk8IOIjlWrxy4pK9KGrLRVSB8WSu8rY=",
+      "serval-domain-verification-40ct5x=VbdjZnWHkRJwpBE0IwXuriy03",
+      "amp-by-sourcegraph-domain-verification-st5f9e=172nCAgVw3POSEMQGXOv24XWO",
+      "plain-domain-verification-vkhaan=eY1PYorYjiTuIxRpcsIDKi19X",
+      "carta-domain-verification-wnnawd=jFGjeToDS0JE6iRBOq79AjxaD",
+      "gather-domain-verification=911fa583-4323-4bc7-9a43-a29ae4a6003e"
+    ],
+    "mx": [
+      {
+        "exchange": "aspmx.l.google.com",
+        "priority": 1
+      },
+      {
+        "exchange": "alt1.aspmx.l.google.com",
+        "priority": 5
+      },
+      {
+        "exchange": "alt2.aspmx.l.google.com",
+        "priority": 5
+      },
+      {
+        "exchange": "aspmx2.googlemail.com",
+        "priority": 10
+      },
+      {
+        "exchange": "aspmx3.googlemail.com",
+        "priority": 10
+      }
+    ],
+    "ns": [
+      "ns1.vercel-dns.com",
+      "ns2.vercel-dns.com"
+    ],
+    "dmarc": [
+      "v=DMARC1; p=quarantine; rua=mailto:df9481016e14030@rep.dmarcanalyzer.com; ruf=mailto:df9481016e14030@for.dmarcanalyzer.com; pct=100; fo=1;"
+    ]
+  },
+  "asn": {
+    "ip": "64.239.109.129",
+    "asn": 16509,
+    "asName": "AMAZON-02 - Amazon.com, Inc., US",
+    "prefix": "64.239.109.0/24",
+    "country": "US"
+  }
+}
