@@ -130,7 +130,7 @@ const INDIRECT_HEADERS = new Set([
   "nel",
 ]);
 
-function confidenceFor(source: Evidence["source"], category: Category, patternConfidence: number, header?: string): Confidence {
+export function confidenceFor(source: Evidence["source"], category: Category, patternConfidence: number, header?: string): Confidence {
   if (patternConfidence <= 50 || (header && INDIRECT_HEADERS.has(header))) return "low";
   // A hosting/CDN provider's own response header is hard proof.
   if (source === "header" && category === "hosting") return "high";

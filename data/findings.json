@@ -1,0 +1,1618 @@
+{
+ "generatedAt": "2026-09-28T09:15:49.412Z",
+ "list": {
+  "name": "yc",
+  "title": "YC startups, W24–F26",
+  "source": "https://yc-oss.github.io/api/companies/all.json",
+  "batches": [
+   "Winter 2024",
+   "Summer 2024",
+   "Fall 2024",
+   "Winter 2025",
+   "Spring 2025",
+   "Summer 2025",
+   "Fall 2025",
+   "Winter 2026",
+   "Spring 2026",
+   "Summer 2026",
+   "Fall 2026"
+  ]
+ },
+ "methodology": {
+  "listed": 1873,
+  "optedOut": 0,
+  "scanned": 1873,
+  "ok": 1828,
+  "failed": 45,
+  "failureReasons": [
+   {
+    "label": "timeout",
+    "count": 33,
+    "share": 0.0176
+   },
+   {
+    "label": "domain does not resolve",
+    "count": 7,
+    "share": 0.0037
+   },
+   {
+    "label": "TLS error",
+    "count": 4,
+    "share": 0.0021
+   },
+   {
+    "label": "too many redirects",
+    "count": 1,
+    "share": 0.0005
+   }
+  ],
+  "scanDates": [
+   "2026-09-28",
+   "2026-09-28"
+  ],
+  "minConfidence": "medium",
+  "minBatchSize": 30
+ },
+ "categories": {
+  "hosting": {
+   "any": {
+    "label": "any",
+    "count": 1808,
+    "share": 0.9891
+   },
+   "services": [
+    {
+     "label": "Vercel",
+     "count": 884,
+     "share": 0.4836
+    },
+    {
+     "label": "Cloudflare",
+     "count": 578,
+     "share": 0.3162
+    },
+    {
+     "label": "Framer",
+     "count": 162,
+     "share": 0.0886
+    },
+    {
+     "label": "Amazon CloudFront",
+     "count": 112,
+     "share": 0.0613
+    },
+    {
+     "label": "jsDelivr",
+     "count": 93,
+     "share": 0.0509
+    },
+    {
+     "label": "Amazon S3",
+     "count": 71,
+     "share": 0.0388
+    },
+    {
+     "label": "Google Hosted Libraries",
+     "count": 66,
+     "share": 0.0361
+    },
+    {
+     "label": "Amazon Web Services",
+     "count": 64,
+     "share": 0.035
+    },
+    {
+     "label": "Firebase Hosting",
+     "count": 58,
+     "share": 0.0317
+    },
+    {
+     "label": "Fastly",
+     "count": 51,
+     "share": 0.0279
+    },
+    {
+     "label": "Unpkg",
+     "count": 37,
+     "share": 0.0202
+    },
+    {
+     "label": "GitHub Pages",
+     "count": 34,
+     "share": 0.0186
+    }
+   ]
+  },
+  "dns": {
+   "any": {
+    "label": "any",
+    "count": 1689,
+    "share": 0.924
+   },
+   "services": [
+    {
+     "label": "Cloudflare DNS",
+     "count": 753,
+     "share": 0.4119
+    },
+    {
+     "label": "GoDaddy DNS",
+     "count": 251,
+     "share": 0.1373
+    },
+    {
+     "label": "Amazon Route 53",
+     "count": 210,
+     "share": 0.1149
+    },
+    {
+     "label": "Namecheap DNS",
+     "count": 205,
+     "share": 0.1121
+    },
+    {
+     "label": "Vercel DNS",
+     "count": 136,
+     "share": 0.0744
+    },
+    {
+     "label": "Google Cloud DNS",
+     "count": 88,
+     "share": 0.0481
+    },
+    {
+     "label": "NS1",
+     "count": 36,
+     "share": 0.0197
+    },
+    {
+     "label": "Azure DNS",
+     "count": 6,
+     "share": 0.0033
+    },
+    {
+     "label": "DigitalOcean DNS",
+     "count": 5,
+     "share": 0.0027
+    },
+    {
+     "label": "DNSimple",
+     "count": 1,
+     "share": 0.0005
+    }
+   ]
+  },
+  "framework": {
+   "any": {
+    "label": "any",
+    "count": 1005,
+    "share": 0.5498
+   },
+   "services": [
+    {
+     "label": "Next.js",
+     "count": 851,
+     "share": 0.4655
+    },
+    {
+     "label": "Astro",
+     "count": 93,
+     "share": 0.0509
+    },
+    {
+     "label": "React",
+     "count": 30,
+     "share": 0.0164
+    },
+    {
+     "label": "SvelteKit",
+     "count": 19,
+     "share": 0.0104
+    },
+    {
+     "label": "Express",
+     "count": 10,
+     "share": 0.0055
+    },
+    {
+     "label": "Stimulus",
+     "count": 8,
+     "share": 0.0044
+    },
+    {
+     "label": "Nuxt.js",
+     "count": 6,
+     "share": 0.0033
+    },
+    {
+     "label": "Vue.js",
+     "count": 6,
+     "share": 0.0033
+    },
+    {
+     "label": "RxJS",
+     "count": 5,
+     "share": 0.0027
+    },
+    {
+     "label": "Jekyll",
+     "count": 3,
+     "share": 0.0016
+    },
+    {
+     "label": "Hugo",
+     "count": 2,
+     "share": 0.0011
+    },
+    {
+     "label": "Remix",
+     "count": 2,
+     "share": 0.0011
+    }
+   ]
+  },
+  "email-workspace": {
+   "any": {
+    "label": "any",
+    "count": 1780,
+    "share": 0.9737
+   },
+   "services": [
+    {
+     "label": "Google Workspace",
+     "count": 1665,
+     "share": 0.9108
+    },
+    {
+     "label": "Microsoft 365",
+     "count": 116,
+     "share": 0.0635
+    },
+    {
+     "label": "Namecheap Email Forwarding",
+     "count": 27,
+     "share": 0.0148
+    },
+    {
+     "label": "Cloudflare Email Routing",
+     "count": 23,
+     "share": 0.0126
+    },
+    {
+     "label": "GoDaddy Email",
+     "count": 22,
+     "share": 0.012
+    },
+    {
+     "label": "Zoho Mail",
+     "count": 20,
+     "share": 0.0109
+    },
+    {
+     "label": "Namecheap Private Email",
+     "count": 8,
+     "share": 0.0044
+    },
+    {
+     "label": "ImprovMX",
+     "count": 5,
+     "share": 0.0027
+    },
+    {
+     "label": "Proton Mail",
+     "count": 5,
+     "share": 0.0027
+    },
+    {
+     "label": "HEY",
+     "count": 2,
+     "share": 0.0011
+    },
+    {
+     "label": "Alibaba Mail",
+     "count": 1,
+     "share": 0.0005
+    },
+    {
+     "label": "iCloud Mail",
+     "count": 1,
+     "share": 0.0005
+    }
+   ]
+  },
+  "email-sending": {
+   "any": {
+    "label": "any",
+    "count": 343,
+    "share": 0.1876
+   },
+   "services": [
+    {
+     "label": "Amazon SES",
+     "count": 138,
+     "share": 0.0755
+    },
+    {
+     "label": "HubSpot",
+     "count": 71,
+     "share": 0.0388
+    },
+    {
+     "label": "SendGrid",
+     "count": 37,
+     "share": 0.0202
+    },
+    {
+     "label": "Resend",
+     "count": 31,
+     "share": 0.017
+    },
+    {
+     "label": "Firebase Auth email",
+     "count": 26,
+     "share": 0.0142
+    },
+    {
+     "label": "Brevo",
+     "count": 25,
+     "share": 0.0137
+    },
+    {
+     "label": "Mailgun",
+     "count": 19,
+     "share": 0.0104
+    },
+    {
+     "label": "MailerLite",
+     "count": 13,
+     "share": 0.0071
+    },
+    {
+     "label": "lemlist",
+     "count": 12,
+     "share": 0.0066
+    },
+    {
+     "label": "Klaviyo",
+     "count": 9,
+     "share": 0.0049
+    },
+    {
+     "label": "Postmark",
+     "count": 8,
+     "share": 0.0044
+    },
+    {
+     "label": "Mailjet",
+     "count": 5,
+     "share": 0.0027
+    }
+   ]
+  },
+  "payments": {
+   "any": {
+    "label": "any",
+    "count": 71,
+    "share": 0.0388
+   },
+   "services": [
+    {
+     "label": "Stripe",
+     "count": 71,
+     "share": 0.0388
+    }
+   ]
+  },
+  "analytics": {
+   "any": {
+    "label": "any",
+    "count": 370,
+    "share": 0.2024
+   },
+   "services": [
+    {
+     "label": "Google Analytics",
+     "count": 223,
+     "share": 0.122
+    },
+    {
+     "label": "Google Tag Manager",
+     "count": 171,
+     "share": 0.0935
+    },
+    {
+     "label": "Vercel Analytics",
+     "count": 14,
+     "share": 0.0077
+    },
+    {
+     "label": "Contentsquare",
+     "count": 4,
+     "share": 0.0022
+    },
+    {
+     "label": "Ahrefs",
+     "count": 3,
+     "share": 0.0016
+    },
+    {
+     "label": "Fathom Analytics",
+     "count": 3,
+     "share": 0.0016
+    },
+    {
+     "label": "Site Kit",
+     "count": 3,
+     "share": 0.0016
+    },
+    {
+     "label": "LaunchDarkly",
+     "count": 2,
+     "share": 0.0011
+    },
+    {
+     "label": "Linkedin Insight Tag",
+     "count": 2,
+     "share": 0.0011
+    },
+    {
+     "label": "Amplitude",
+     "count": 1,
+     "share": 0.0005
+    },
+    {
+     "label": "Canopy Connect",
+     "count": 1,
+     "share": 0.0005
+    },
+    {
+     "label": "Crazy Egg",
+     "count": 1,
+     "share": 0.0005
+    }
+   ]
+  },
+  "support": {
+   "any": {
+    "label": "any",
+    "count": 11,
+    "share": 0.006
+   },
+   "services": [
+    {
+     "label": "Zendesk",
+     "count": 7,
+     "share": 0.0038
+    },
+    {
+     "label": "Plain",
+     "count": 4,
+     "share": 0.0022
+    }
+   ]
+  },
+  "auth": {
+   "any": {
+    "label": "any",
+    "count": 40,
+    "share": 0.0219
+   },
+   "services": [
+    {
+     "label": "Clerk",
+     "count": 31,
+     "share": 0.017
+    },
+    {
+     "label": "Stytch",
+     "count": 5,
+     "share": 0.0027
+    },
+    {
+     "label": "WorkOS",
+     "count": 2,
+     "share": 0.0011
+    },
+    {
+     "label": "Google Sign-in",
+     "count": 1,
+     "share": 0.0005
+    },
+    {
+     "label": "NextAuth.js",
+     "count": 1,
+     "share": 0.0005
+    }
+   ]
+  },
+  "monitoring": {
+   "any": {
+    "label": "any",
+    "count": 286,
+    "share": 0.1565
+   },
+   "services": [
+    {
+     "label": "Cloudflare Browser Insights",
+     "count": 277,
+     "share": 0.1515
+    },
+    {
+     "label": "Sentry",
+     "count": 7,
+     "share": 0.0038
+    },
+    {
+     "label": "Atlassian Statuspage",
+     "count": 2,
+     "share": 0.0011
+    },
+    {
+     "label": "Vercel Speed Insights",
+     "count": 2,
+     "share": 0.0011
+    }
+   ]
+  },
+  "collaboration": {
+   "any": {
+    "label": "any",
+    "count": 566,
+    "share": 0.3096
+   },
+   "services": [
+    {
+     "label": "Microsoft 365 tenant",
+     "count": 366,
+     "share": 0.2002
+    },
+    {
+     "label": "Anthropic",
+     "count": 151,
+     "share": 0.0826
+    },
+    {
+     "label": "OpenAI",
+     "count": 78,
+     "share": 0.0427
+    },
+    {
+     "label": "Slack",
+     "count": 63,
+     "share": 0.0345
+    },
+    {
+     "label": "Notion",
+     "count": 47,
+     "share": 0.0257
+    },
+    {
+     "label": "Cursor",
+     "count": 32,
+     "share": 0.0175
+    },
+    {
+     "label": "Zoom",
+     "count": 31,
+     "share": 0.017
+    },
+    {
+     "label": "1Password",
+     "count": 26,
+     "share": 0.0142
+    },
+    {
+     "label": "Tailscale",
+     "count": 22,
+     "share": 0.012
+    },
+    {
+     "label": "Cloudflare dashboard SSO",
+     "count": 19,
+     "share": 0.0104
+    },
+    {
+     "label": "Atlassian",
+     "count": 18,
+     "share": 0.0098
+    },
+    {
+     "label": "Linear",
+     "count": 9,
+     "share": 0.0049
+    }
+   ]
+  },
+  "other": {
+   "any": {
+    "label": "any",
+    "count": 1692,
+    "share": 0.9256
+   },
+   "services": [
+    {
+     "label": "Google Search Console",
+     "count": 1608,
+     "share": 0.8796
+    },
+    {
+     "label": "Apple Business",
+     "count": 195,
+     "share": 0.1067
+    },
+    {
+     "label": "Rippling",
+     "count": 151,
+     "share": 0.0826
+    },
+    {
+     "label": "LinkedIn",
+     "count": 140,
+     "share": 0.0766
+    },
+    {
+     "label": "Webflow",
+     "count": 111,
+     "share": 0.0607
+    },
+    {
+     "label": "HubSpot",
+     "count": 63,
+     "share": 0.0345
+    },
+    {
+     "label": "Postmark DMARC",
+     "count": 55,
+     "share": 0.0301
+    },
+    {
+     "label": "Linkedin Ads",
+     "count": 50,
+     "share": 0.0274
+    },
+    {
+     "label": "Meta Business",
+     "count": 46,
+     "share": 0.0252
+    },
+    {
+     "label": "Valimail",
+     "count": 26,
+     "share": 0.0142
+    },
+    {
+     "label": "TikTok for Developers",
+     "count": 22,
+     "share": 0.012
+    },
+    {
+     "label": "Framer",
+     "count": 19,
+     "share": 0.0104
+    }
+   ]
+  }
+ },
+ "hosting": [
+  {
+   "label": "Vercel",
+   "count": 879,
+   "share": 0.4809
+  },
+  {
+   "label": "Behind Cloudflare",
+   "count": 402,
+   "share": 0.2199
+  },
+  {
+   "label": "Framer",
+   "count": 160,
+   "share": 0.0875
+  },
+  {
+   "label": "AWS",
+   "count": 157,
+   "share": 0.0859
+  },
+  {
+   "label": "Google Cloud",
+   "count": 36,
+   "share": 0.0197
+  },
+  {
+   "label": "GitHub Pages",
+   "count": 34,
+   "share": 0.0186
+  },
+  {
+   "label": "Netlify",
+   "count": 34,
+   "share": 0.0186
+  },
+  {
+   "label": "Render",
+   "count": 23,
+   "share": 0.0126
+  },
+  {
+   "label": "Fastly",
+   "count": 17,
+   "share": 0.0093
+  },
+  {
+   "label": "Other",
+   "count": 65,
+   "share": 0.0356
+  },
+  {
+   "label": "Unknown",
+   "count": 21,
+   "share": 0.0115
+  }
+ ],
+ "cloudflareInFront": {
+  "label": "Cloudflare in front",
+  "count": 578,
+  "share": 0.3162
+ },
+ "dns": [
+  {
+   "label": "Cloudflare DNS",
+   "count": 751,
+   "share": 0.4108
+  },
+  {
+   "label": "GoDaddy DNS",
+   "count": 251,
+   "share": 0.1373
+  },
+  {
+   "label": "Amazon Route 53",
+   "count": 210,
+   "share": 0.1149
+  },
+  {
+   "label": "Namecheap DNS",
+   "count": 204,
+   "share": 0.1116
+  },
+  {
+   "label": "Vercel DNS",
+   "count": 136,
+   "share": 0.0744
+  },
+  {
+   "label": "Google Cloud DNS",
+   "count": 88,
+   "share": 0.0481
+  },
+  {
+   "label": "NS1",
+   "count": 36,
+   "share": 0.0197
+  },
+  {
+   "label": "Azure DNS",
+   "count": 6,
+   "share": 0.0033
+  },
+  {
+   "label": "Other",
+   "count": 6,
+   "share": 0.0033
+  },
+  {
+   "label": "Unrecognised",
+   "count": 140,
+   "share": 0.0766
+  }
+ ],
+ "emailWorkspace": [
+  {
+   "label": "Google Workspace",
+   "count": 1651,
+   "share": 0.9032
+  },
+  {
+   "label": "Microsoft 365",
+   "count": 89,
+   "share": 0.0487
+  },
+  {
+   "label": "Cloudflare Email Routing",
+   "count": 11,
+   "share": 0.006
+  },
+  {
+   "label": "Namecheap Email Forwarding",
+   "count": 7,
+   "share": 0.0038
+  },
+  {
+   "label": "Other",
+   "count": 22,
+   "share": 0.012
+  },
+  {
+   "label": "None detected",
+   "count": 48,
+   "share": 0.0263
+  }
+ ],
+ "emailSending": [
+  {
+   "label": "Amazon SES",
+   "count": 138,
+   "share": 0.0755
+  },
+  {
+   "label": "HubSpot",
+   "count": 71,
+   "share": 0.0388
+  },
+  {
+   "label": "SendGrid",
+   "count": 37,
+   "share": 0.0202
+  },
+  {
+   "label": "Resend",
+   "count": 31,
+   "share": 0.017
+  },
+  {
+   "label": "Firebase Auth email",
+   "count": 26,
+   "share": 0.0142
+  },
+  {
+   "label": "Brevo",
+   "count": 25,
+   "share": 0.0137
+  },
+  {
+   "label": "Mailgun",
+   "count": 19,
+   "share": 0.0104
+  },
+  {
+   "label": "MailerLite",
+   "count": 13,
+   "share": 0.0071
+  },
+  {
+   "label": "lemlist",
+   "count": 12,
+   "share": 0.0066
+  },
+  {
+   "label": "Klaviyo",
+   "count": 9,
+   "share": 0.0049
+  }
+ ],
+ "frameworks": [
+  {
+   "label": "Next.js",
+   "count": 845,
+   "share": 0.4623
+  },
+  {
+   "label": "Framer",
+   "count": 181,
+   "share": 0.099
+  },
+  {
+   "label": "Webflow",
+   "count": 117,
+   "share": 0.064
+  },
+  {
+   "label": "Astro",
+   "count": 92,
+   "share": 0.0503
+  },
+  {
+   "label": "SvelteKit",
+   "count": 19,
+   "share": 0.0104
+  },
+  {
+   "label": "WordPress",
+   "count": 15,
+   "share": 0.0082
+  },
+  {
+   "label": "Express",
+   "count": 9,
+   "share": 0.0049
+  },
+  {
+   "label": "Squarespace",
+   "count": 7,
+   "share": 0.0038
+  },
+  {
+   "label": "Nuxt.js",
+   "count": 6,
+   "share": 0.0033
+  },
+  {
+   "label": "Other",
+   "count": 32,
+   "share": 0.0175
+  },
+  {
+   "label": "None detected",
+   "count": 505,
+   "share": 0.2763
+  }
+ ],
+ "support": [
+  {
+   "label": "Zendesk",
+   "count": 7,
+   "share": 0.0038
+  },
+  {
+   "label": "Plain",
+   "count": 4,
+   "share": 0.0022
+  }
+ ],
+ "payments": [
+  {
+   "label": "Stripe",
+   "count": 71,
+   "share": 0.0388
+  }
+ ],
+ "ai": [
+  {
+   "label": "Any of these",
+   "count": 208,
+   "share": 0.1138
+  },
+  {
+   "label": "Anthropic",
+   "count": 151,
+   "share": 0.0826
+  },
+  {
+   "label": "OpenAI",
+   "count": 78,
+   "share": 0.0427
+  },
+  {
+   "label": "Cursor",
+   "count": 32,
+   "share": 0.0175
+  },
+  {
+   "label": "Mistral AI",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "ElevenLabs",
+   "count": 1,
+   "share": 0.0005
+  }
+ ],
+ "collaboration": [
+  {
+   "label": "Microsoft 365 tenant",
+   "count": 366,
+   "share": 0.2002
+  },
+  {
+   "label": "Anthropic",
+   "count": 151,
+   "share": 0.0826
+  },
+  {
+   "label": "OpenAI",
+   "count": 78,
+   "share": 0.0427
+  },
+  {
+   "label": "Slack",
+   "count": 63,
+   "share": 0.0345
+  },
+  {
+   "label": "Notion",
+   "count": 47,
+   "share": 0.0257
+  },
+  {
+   "label": "Cursor",
+   "count": 32,
+   "share": 0.0175
+  },
+  {
+   "label": "Zoom",
+   "count": 31,
+   "share": 0.017
+  },
+  {
+   "label": "1Password",
+   "count": 26,
+   "share": 0.0142
+  },
+  {
+   "label": "Tailscale",
+   "count": 22,
+   "share": 0.012
+  },
+  {
+   "label": "Cloudflare dashboard SSO",
+   "count": 19,
+   "share": 0.0104
+  },
+  {
+   "label": "Atlassian",
+   "count": 18,
+   "share": 0.0098
+  },
+  {
+   "label": "Linear",
+   "count": 9,
+   "share": 0.0049
+  }
+ ],
+ "byBatch": [
+  {
+   "id": "vercel",
+   "label": "Hosted on Vercel",
+   "points": [
+    {
+     "batch": "Winter 2024",
+     "n": 218,
+     "count": 88,
+     "share": 0.4037
+    },
+    {
+     "batch": "Summer 2024",
+     "n": 230,
+     "count": 88,
+     "share": 0.3826
+    },
+    {
+     "batch": "Fall 2024",
+     "n": 90,
+     "count": 47,
+     "share": 0.5222
+    },
+    {
+     "batch": "Winter 2025",
+     "n": 154,
+     "count": 70,
+     "share": 0.4545
+    },
+    {
+     "batch": "Spring 2025",
+     "n": 136,
+     "count": 64,
+     "share": 0.4706
+    },
+    {
+     "batch": "Summer 2025",
+     "n": 161,
+     "count": 81,
+     "share": 0.5031
+    },
+    {
+     "batch": "Fall 2025",
+     "n": 140,
+     "count": 80,
+     "share": 0.5714
+    },
+    {
+     "batch": "Winter 2026",
+     "n": 190,
+     "count": 104,
+     "share": 0.5474
+    },
+    {
+     "batch": "Spring 2026",
+     "n": 188,
+     "count": 101,
+     "share": 0.5372
+    },
+    {
+     "batch": "Summer 2026",
+     "n": 229,
+     "count": 112,
+     "share": 0.4891
+    },
+    {
+     "batch": "Fall 2026",
+     "n": 92,
+     "count": 44,
+     "share": 0.4783
+    }
+   ]
+  },
+  {
+   "id": "nextjs",
+   "label": "Next.js",
+   "points": [
+    {
+     "batch": "Winter 2024",
+     "n": 218,
+     "count": 82,
+     "share": 0.3761
+    },
+    {
+     "batch": "Summer 2024",
+     "n": 230,
+     "count": 86,
+     "share": 0.3739
+    },
+    {
+     "batch": "Fall 2024",
+     "n": 90,
+     "count": 46,
+     "share": 0.5111
+    },
+    {
+     "batch": "Winter 2025",
+     "n": 154,
+     "count": 60,
+     "share": 0.3896
+    },
+    {
+     "batch": "Spring 2025",
+     "n": 136,
+     "count": 72,
+     "share": 0.5294
+    },
+    {
+     "batch": "Summer 2025",
+     "n": 161,
+     "count": 79,
+     "share": 0.4907
+    },
+    {
+     "batch": "Fall 2025",
+     "n": 140,
+     "count": 72,
+     "share": 0.5143
+    },
+    {
+     "batch": "Winter 2026",
+     "n": 190,
+     "count": 99,
+     "share": 0.5211
+    },
+    {
+     "batch": "Spring 2026",
+     "n": 188,
+     "count": 92,
+     "share": 0.4894
+    },
+    {
+     "batch": "Summer 2026",
+     "n": 229,
+     "count": 113,
+     "share": 0.4934
+    },
+    {
+     "batch": "Fall 2026",
+     "n": 92,
+     "count": 50,
+     "share": 0.5435
+    }
+   ]
+  },
+  {
+   "id": "framer",
+   "label": "Built with Framer",
+   "points": [
+    {
+     "batch": "Winter 2024",
+     "n": 218,
+     "count": 37,
+     "share": 0.1697
+    },
+    {
+     "batch": "Summer 2024",
+     "n": 230,
+     "count": 35,
+     "share": 0.1522
+    },
+    {
+     "batch": "Fall 2024",
+     "n": 90,
+     "count": 8,
+     "share": 0.0889
+    },
+    {
+     "batch": "Winter 2025",
+     "n": 154,
+     "count": 20,
+     "share": 0.1299
+    },
+    {
+     "batch": "Spring 2025",
+     "n": 136,
+     "count": 17,
+     "share": 0.125
+    },
+    {
+     "batch": "Summer 2025",
+     "n": 161,
+     "count": 17,
+     "share": 0.1056
+    },
+    {
+     "batch": "Fall 2025",
+     "n": 140,
+     "count": 10,
+     "share": 0.0714
+    },
+    {
+     "batch": "Winter 2026",
+     "n": 190,
+     "count": 13,
+     "share": 0.0684
+    },
+    {
+     "batch": "Spring 2026",
+     "n": 188,
+     "count": 10,
+     "share": 0.0532
+    },
+    {
+     "batch": "Summer 2026",
+     "n": 229,
+     "count": 10,
+     "share": 0.0437
+    },
+    {
+     "batch": "Fall 2026",
+     "n": 92,
+     "count": 4,
+     "share": 0.0435
+    }
+   ]
+  },
+  {
+   "id": "google-workspace",
+   "label": "Google Workspace",
+   "points": [
+    {
+     "batch": "Winter 2024",
+     "n": 218,
+     "count": 194,
+     "share": 0.8899
+    },
+    {
+     "batch": "Summer 2024",
+     "n": 230,
+     "count": 209,
+     "share": 0.9087
+    },
+    {
+     "batch": "Fall 2024",
+     "n": 90,
+     "count": 81,
+     "share": 0.9
+    },
+    {
+     "batch": "Winter 2025",
+     "n": 154,
+     "count": 139,
+     "share": 0.9026
+    },
+    {
+     "batch": "Spring 2025",
+     "n": 136,
+     "count": 118,
+     "share": 0.8676
+    },
+    {
+     "batch": "Summer 2025",
+     "n": 161,
+     "count": 149,
+     "share": 0.9255
+    },
+    {
+     "batch": "Fall 2025",
+     "n": 140,
+     "count": 119,
+     "share": 0.85
+    },
+    {
+     "batch": "Winter 2026",
+     "n": 190,
+     "count": 182,
+     "share": 0.9579
+    },
+    {
+     "batch": "Spring 2026",
+     "n": 188,
+     "count": 169,
+     "share": 0.8989
+    },
+    {
+     "batch": "Summer 2026",
+     "n": 229,
+     "count": 208,
+     "share": 0.9083
+    },
+    {
+     "batch": "Fall 2026",
+     "n": 92,
+     "count": 83,
+     "share": 0.9022
+    }
+   ]
+  },
+  {
+   "id": "cloudflare-dns",
+   "label": "Cloudflare DNS",
+   "points": [
+    {
+     "batch": "Winter 2024",
+     "n": 218,
+     "count": 79,
+     "share": 0.3624
+    },
+    {
+     "batch": "Summer 2024",
+     "n": 230,
+     "count": 97,
+     "share": 0.4217
+    },
+    {
+     "batch": "Fall 2024",
+     "n": 90,
+     "count": 40,
+     "share": 0.4444
+    },
+    {
+     "batch": "Winter 2025",
+     "n": 154,
+     "count": 51,
+     "share": 0.3312
+    },
+    {
+     "batch": "Spring 2025",
+     "n": 136,
+     "count": 49,
+     "share": 0.3603
+    },
+    {
+     "batch": "Summer 2025",
+     "n": 161,
+     "count": 71,
+     "share": 0.441
+    },
+    {
+     "batch": "Fall 2025",
+     "n": 140,
+     "count": 57,
+     "share": 0.4071
+    },
+    {
+     "batch": "Winter 2026",
+     "n": 190,
+     "count": 72,
+     "share": 0.3789
+    },
+    {
+     "batch": "Spring 2026",
+     "n": 188,
+     "count": 75,
+     "share": 0.3989
+    },
+    {
+     "batch": "Summer 2026",
+     "n": 229,
+     "count": 117,
+     "share": 0.5109
+    },
+    {
+     "batch": "Fall 2026",
+     "n": 92,
+     "count": 43,
+     "share": 0.4674
+    }
+   ]
+  },
+  {
+   "id": "ai-tools",
+   "label": "Verified an AI tool",
+   "points": [
+    {
+     "batch": "Winter 2024",
+     "n": 218,
+     "count": 37,
+     "share": 0.1697
+    },
+    {
+     "batch": "Summer 2024",
+     "n": 230,
+     "count": 24,
+     "share": 0.1043
+    },
+    {
+     "batch": "Fall 2024",
+     "n": 90,
+     "count": 8,
+     "share": 0.0889
+    },
+    {
+     "batch": "Winter 2025",
+     "n": 154,
+     "count": 18,
+     "share": 0.1169
+    },
+    {
+     "batch": "Spring 2025",
+     "n": 136,
+     "count": 23,
+     "share": 0.1691
+    },
+    {
+     "batch": "Summer 2025",
+     "n": 161,
+     "count": 16,
+     "share": 0.0994
+    },
+    {
+     "batch": "Fall 2025",
+     "n": 140,
+     "count": 12,
+     "share": 0.0857
+    },
+    {
+     "batch": "Winter 2026",
+     "n": 190,
+     "count": 17,
+     "share": 0.0895
+    },
+    {
+     "batch": "Spring 2026",
+     "n": 188,
+     "count": 19,
+     "share": 0.1011
+    },
+    {
+     "batch": "Summer 2026",
+     "n": 229,
+     "count": 22,
+     "share": 0.0961
+    },
+    {
+     "batch": "Fall 2026",
+     "n": 92,
+     "count": 12,
+     "share": 0.1304
+    }
+   ]
+  }
+ ],
+ "vendorCount": {
+  "median": 6,
+  "p25": 5,
+  "p75": 8,
+  "max": 27,
+  "histogram": [
+   {
+    "label": "0",
+    "count": 0,
+    "share": 0
+   },
+   {
+    "label": "1–4",
+    "count": 270,
+    "share": 0.1477
+   },
+   {
+    "label": "5–9",
+    "count": 1376,
+    "share": 0.7527
+   },
+   {
+    "label": "10–14",
+    "count": 160,
+    "share": 0.0875
+   },
+   {
+    "label": "15–19",
+    "count": 17,
+    "share": 0.0093
+   },
+   {
+    "label": "20+",
+    "count": 5,
+    "share": 0.0027
+   }
+  ]
+ },
+ "commonStacks": [
+  {
+   "hosting": "Vercel",
+   "dns": "Cloudflare DNS",
+   "email": "Google Workspace",
+   "framework": "Next.js",
+   "count": 238,
+   "share": 0.1302
+  },
+  {
+   "hosting": "Behind Cloudflare",
+   "dns": "Cloudflare DNS",
+   "email": "Google Workspace",
+   "framework": "None detected",
+   "count": 104,
+   "share": 0.0569
+  },
+  {
+   "hosting": "Vercel",
+   "dns": "Vercel DNS",
+   "email": "Google Workspace",
+   "framework": "Next.js",
+   "count": 93,
+   "share": 0.0509
+  },
+  {
+   "hosting": "Vercel",
+   "dns": "GoDaddy DNS",
+   "email": "Google Workspace",
+   "framework": "Next.js",
+   "count": 85,
+   "share": 0.0465
+  },
+  {
+   "hosting": "Vercel",
+   "dns": "Namecheap DNS",
+   "email": "Google Workspace",
+   "framework": "Next.js",
+   "count": 67,
+   "share": 0.0367
+  },
+  {
+   "hosting": "Behind Cloudflare",
+   "dns": "Cloudflare DNS",
+   "email": "Google Workspace",
+   "framework": "Next.js",
+   "count": 64,
+   "share": 0.035
+  },
+  {
+   "hosting": "Vercel",
+   "dns": "Cloudflare DNS",
+   "email": "Google Workspace",
+   "framework": "None detected",
+   "count": 53,
+   "share": 0.029
+  },
+  {
+   "hosting": "AWS",
+   "dns": "Amazon Route 53",
+   "email": "Google Workspace",
+   "framework": "Next.js",
+   "count": 39,
+   "share": 0.0213
+  },
+  {
+   "hosting": "AWS",
+   "dns": "Amazon Route 53",
+   "email": "Google Workspace",
+   "framework": "None detected",
+   "count": 39,
+   "share": 0.0213
+  },
+  {
+   "hosting": "Behind Cloudflare",
+   "dns": "Cloudflare DNS",
+   "email": "Google Workspace",
+   "framework": "Astro",
+   "count": 39,
+   "share": 0.0213
+  }
+ ]
+}

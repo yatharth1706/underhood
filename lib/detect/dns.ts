@@ -67,7 +67,8 @@ export function detectFromDns(dns: DnsResult): {
   }
 
   const unmatchedTxt: string[] = [];
-  for (const rec of dns.txt) {
+  for (const raw of dns.txt) {
+    const rec = raw.trim(); // some zones publish TXT values with stray leading spaces
     if (/^v=[a-z0-9]+/i.test(rec)) continue; // SPF (handled above), DKIM, STS, …
     if (!add("txt", rec, { source: "txt", detail: `TXT ${truncateRecord(rec)}` })) unmatchedTxt.push(txtPrefix(rec));
   }

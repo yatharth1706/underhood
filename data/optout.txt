@@ -1,0 +1,1 @@
+# Domains whose owners asked not to be scanned. One per line; "#" starts a comment.

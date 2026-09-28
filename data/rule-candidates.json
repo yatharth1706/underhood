@@ -1,0 +1,507 @@
+{
+ "input": "data/scans/yc-2026-09-28.jsonl",
+ "txt": [
+  {
+   "label": "ms-domain-verification",
+   "count": 9,
+   "share": 0.0048
+  },
+  {
+   "label": "cloudflare_oauth_client_publisher",
+   "count": 7,
+   "share": 0.0037
+  },
+  {
+   "label": "proxy-ssl.webflow.com",
+   "count": 7,
+   "share": 0.0037
+  },
+  {
+   "label": "bw",
+   "count": 6,
+   "share": 0.0032
+  },
+  {
+   "label": "one-time-verification",
+   "count": 5,
+   "share": 0.0027
+  },
+  {
+   "label": "f0095018235b8109a2bf9f65674a1784b6971ed6",
+   "count": 4,
+   "share": 0.0021
+  },
+  {
+   "label": "3600rippling-domain-verification",
+   "count": 3,
+   "share": 0.0016
+  },
+  {
+   "label": "asv",
+   "count": 3,
+   "share": 0.0016
+  },
+  {
+   "label": "include",
+   "count": 3,
+   "share": 0.0016
+  },
+  {
+   "label": "ps-cd-verification",
+   "count": 3,
+   "share": 0.0016
+  },
+  {
+   "label": "08cebbb6-463b-4cf3-b8f1-04d2f06504e2",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "27aab5373841b85aab94982ee19ab62f96481ed6",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "42e0f1f50d0746987983d8803018719123275674",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "53012de8b0b79984cd7c6667e5d6a1f9d5c91ed6",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "abuseipdb-verification",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "afternic-verification-cvguqu8sklxsjxcpbsk2cm",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "afternic-verification-qvn3p7purqtyub6hbpxp9l",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "asv_domain",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "directfedauthurl",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "domain-verification",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "exhibit-verify",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "proxy.webflow.com",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "smtp.google.com.",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "vc-domain-verify",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "_11yi51fh1ywwujq1v0nptk9iwpzcbtg",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_3djts78djm9vunrgyiitlk45961q0mf",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_5cpf9w6h70z4jox9xuzen2v5qzlmvib",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_7g7lgdk3ehn87iyuo3pszfmx3o0pmfi",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_acme-challenge.amerahealthsolutions.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_acme-challenge.delineate.pro",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_cazduyur007cadhe39jdil50jrh73au",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_cf-custom-hostname.login.elimentary.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_cf-custom-hostname.security.ghosteye.ai",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_cf-custom-hostname.trust.askclara.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_cf-custom-hostname.trust.getsocratix.ai",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_cf-custom-hostname.trust.useprox.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_cf-custom-hostname.www.elimentary.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_dmarc.getpaloma.ai",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_ea3y5wqn3on06nyh0564zmqgkp87rgq",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_ebvkjgosepozw86p1epus4jvupiu6tp",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_fastly-domain-delegation.status.toma.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_globalsign-domain-verification",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_h2qo2yxq77gmqbjp9gk7txkyt8m3ave",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_h3p6v0p7pcvob57msg9wnm7iuy18gof",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_kp3sbbryo50hyxgrs1z9dz8m4fkj4s3",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_kt91c368s1dyf5bnof1mpopodqkc5jh",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_l94nbdtlksfj280xvli3pnf9gi3bszn",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_lj400fb9vvu7cw3p71ucl0vi2ba5mjs",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_m27bcjzekrk5f1ypz8vzs9i15sjymng",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_pbqaucmiefsu6se37qmmj520eag0c41",
+   "count": 1,
+   "share": 0.0005
+  }
+ ],
+ "spf": [
+  {
+   "label": "_spf.porkbun.com",
+   "count": 13,
+   "share": 0.0069
+  },
+  {
+   "label": "_spf.paubox.com",
+   "count": 5,
+   "share": 0.0027
+  },
+  {
+   "label": "_spf-eu.ionos.com",
+   "count": 3,
+   "share": 0.0016
+  },
+  {
+   "label": "_spf.smtp.mailtrap.live",
+   "count": 3,
+   "share": 0.0016
+  },
+  {
+   "label": "mx.ovh.com",
+   "count": 3,
+   "share": 0.0016
+  },
+  {
+   "label": "spf.easywp.com",
+   "count": 3,
+   "share": 0.0016
+  },
+  {
+   "label": "_spf-usg1.ppe-hosted.com",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "_spf.mail.hostinger.com",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "resend.email",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "zohomail.eu",
+   "count": 2,
+   "share": 0.0011
+  },
+  {
+   "label": "_mailcust.gandi.net",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_spf-us.ionos.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_spf-usg2.ppe-hosted.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_spf.abelpolice_com._d.easydmarc.pro",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_spf.enhancedradar_com._d.easydmarc.pro",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_spf.fazeshift_com._d.easydmarc.pro",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_spf.hey.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_spf.mailersend.net",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_spf.mailsuite.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_spf.octadesk.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_spf.sendergen.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "_spf.wpcloud.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "aspmx.pardot.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "clerk.services",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-34c065e1ae._spfm.10xdental.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-34c065e1ae._spfm.pointone.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-3ae7784a9e._spfm.goldbridgebanking.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-3ae7784a9e._spfm.kaigohealth.ai",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-3ae7784a9e._spfm.useparrot.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spf.rocketable.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.adapted.app",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.agenticlabs.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.aircaps.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.alice.tech",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.anoria.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.antimattr.one",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.aseonlabs.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.astor.app",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.astroenergy.ai",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.atlasgrid.ai",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.attunement.ai",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.avelishealth.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.aviro.ai",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.axionorbital.space",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.axisanalysis.com",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.baudlabs.ai",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.belvedir.ai",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.bild.ai",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.blank.bio",
+   "count": 1,
+   "share": 0.0005
+  },
+  {
+   "label": "dc-aa8e722993._spfm.blueshoe.com",
+   "count": 1,
+   "share": 0.0005
+  }
+ ]
+}

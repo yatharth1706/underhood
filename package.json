@@ -11,7 +11,10 @@
     "test": "vitest run",
     "scan": "tsx scripts/scan-one.ts",
     "fixture": "tsx scripts/save-fixture.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "fetch:yc": "tsx scripts/fetch-yc.ts",
+    "scan:batch": "tsx scripts/scan-batch.ts",
+    "aggregate": "tsx scripts/aggregate.ts"
   },
   "dependencies": {
     "ipaddr.js": "^2.5.0",

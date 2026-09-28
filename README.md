@@ -13,6 +13,18 @@ pnpm sync:fingerprints      # re-vendor webappanalyzer rules into data/fingerpri
 pnpm typecheck && pnpm lint
 ```
 
+### Findings (batch scan → report)
+
+```bash
+pnpm fetch:yc                       # data/lists/yc.txt + yc.meta.json (YC batches from 2024 on)
+pnpm scan:batch --list yc           # → data/scans/yc-<date>.jsonl; resumable, Ctrl-C safe, ≤ 8 concurrent
+pnpm aggregate                      # → data/findings.json (+ prints unmatched TXT/SPF for new rules)
+```
+
+Each scan line stores the raw DNS/ASN data and the HTTP detections, so after adding a DNS rule you only re-run
+`pnpm aggregate`, not the scan. `/findings` and `/findings/<chart>` (one URL + OG image per chart) are static pages
+built from `data/findings.json`. Domains in `data/optout.txt` are never scanned and are dropped from the report.
+
 ## How it works
 
 ```
@@ -31,7 +43,7 @@ lib/safety.ts          domain normalization + SSRF guard
 
 **SSRF.** The fetch uses an undici `Agent` whose socket-level `lookup` refuses any hostname that resolves to a non-public address (private, loopback, link-local, CGNAT, multicast, ULA…). Because the check runs at connect time, it covers every redirect hop and DNS rebinding. Redirect targets are also checked for scheme, port, credentials and IP literals.
 
-**Growing the rule set.** Each Profile carries `unmatched.txt` / `unmatched.spf`: records we saw but have no rule for. The batch aggregate (P2) will rank these to find the next rules to add.
+**Growing the rule set.** Each Profile carries `unmatched.txt` / `unmatched.spf`: records we saw but have no rule for. `pnpm aggregate` ranks them across the batch (also saved to `data/rule-candidates.json`); that's where most rules in `dns-rules.ts` came from.
 
 ## Notes
 

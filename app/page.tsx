@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { findings } from "@/lib/findings/charts";
 
 const EXAMPLES = ["linear.app", "vercel.com", "stripe.com", "posthog.com", "cal.com", "supabase.com"];
 
@@ -76,10 +77,12 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ e
           </table>
         </div>
         <aside className="border-l-2 border-accent pl-5 text-sm">
-          <h2 className="label">Coming next</h2>
+          <h2 className="label">Findings</h2>
           <p className="mt-2">
-            <span className="font-medium">State of startup stacks.</span>{" "}
-            <span className="text-muted">The same scanner run over ~2,000 YC companies. Single scans miss things; 2,000 of them don&apos;t.</span>
+            <Link href="/findings" className="font-medium underline decoration-rule underline-offset-4 hover:text-accent">
+              What {findings.methodology.ok.toLocaleString("en-US")} YC startups run on →
+            </Link>{" "}
+            <span className="text-muted">The same scanner run over every recent YC company. Single scans miss things; this many don&apos;t.</span>
           </p>
         </aside>
       </section>
