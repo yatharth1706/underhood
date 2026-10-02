@@ -11,6 +11,7 @@
 import { appendFileSync, existsSync, mkdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { failureReason, scanOk } from "../lib/findings/failures";
+import { optedOut } from "../lib/optout";
 import type { ScanLine } from "../lib/findings/redetect";
 import { InvalidDomainError, normalizeDomain } from "../lib/safety";
 import { profileFromRecord, runProbes, toRecord } from "../lib/scan";
@@ -64,7 +65,7 @@ async function main() {
   const limit = arg("--limit") ? Number(arg("--limit")) : Infinity;
   const out = arg("--out") ?? path.join("data/scans", `${listName}-${new Date().toISOString().slice(0, 10)}.jsonl`);
 
-  const optout = new Set(readLines("data/optout.txt").map((d) => d.toLowerCase()));
+  const optout = optedOut();
   const all = [...new Set(readLines(listFile).map((d) => d.toLowerCase()))];
   const done = doneDomains(out);
   const todo = all.filter((d) => !optout.has(d) && !done.has(d)).slice(0, limit);

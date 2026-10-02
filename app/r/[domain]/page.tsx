@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { cache } from "react";
 import { ConfidenceBadge, CONFIDENCE_HELP } from "@/components/confidence";
 import { CopyLink } from "@/components/copy-link";
 import { EvidenceLine } from "@/components/evidence";
 import { CATEGORY_LABELS, CATEGORY_ORDER } from "@/lib/categories";
+import { cachedScan } from "@/lib/cached-scan";
+import { OPTOUT_URL } from "@/lib/config";
+import { isOptedOut } from "@/lib/optout";
 import { InvalidDomainError, normalizeDomain } from "@/lib/safety";
-import { scan } from "@/lib/scan";
 import type { Confidence, Detection, Profile } from "@/lib/types";
 
 export const revalidate = 86400;
@@ -19,8 +20,6 @@ export async function generateStaticParams() {
 }
 
 type Params = { params: Promise<{ domain: string }> };
-
-const getProfile = cache((domain: string) => scan(domain));
 
 function parseParam(raw: string): { domain: string } | { error: string } {
   try {
@@ -34,7 +33,8 @@ function parseParam(raw: string): { domain: string } | { error: string } {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const parsed = parseParam((await params).domain);
   if ("error" in parsed) return { title: "Not a public domain" };
-  const p = await getProfile(parsed.domain);
+  if (isOptedOut(parsed.domain)) return { title: `${parsed.domain} (opted out)`, robots: { index: false } };
+  const p = await cachedScan(parsed.domain);
   const top = p.detections.filter((d) => d.confidence !== "low").slice(0, 6).map((d) => d.service);
   return {
     title: `What ${p.domain} runs on`,
@@ -92,6 +92,22 @@ function Row({ d }: { d: Detection }) {
   );
 }
 
+function OptedOut({ domain }: { domain: string }) {
+  return (
+    <div className="pt-16">
+      <p className="label">Report</p>
+      <h1 className="mt-2 font-mono text-3xl break-all sm:text-5xl">{domain}</h1>
+      <p className="mt-4 max-w-xl text-muted">
+        The owner of this domain asked not to be scanned, so Underhood doesn&apos;t scan or show it and leaves it out of the
+        findings.
+      </p>
+      <Link href="/about#opt-out" className="mt-6 inline-block font-mono text-sm underline underline-offset-4 hover:text-accent">
+        How opting out works →
+      </Link>
+    </div>
+  );
+}
+
 function Invalid({ raw, error }: { raw: string; error: string }) {
   return (
     <div className="pt-16">
@@ -110,8 +126,9 @@ export default async function Report({ params }: Params) {
   const parsed = parseParam(raw);
   if ("error" in parsed) return <Invalid raw={raw} error={parsed.error} />;
   if (parsed.domain !== decodeURIComponent(raw)) redirect(`/r/${parsed.domain}`);
+  if (isOptedOut(parsed.domain)) return <OptedOut domain={parsed.domain} />;
 
-  const p = await getProfile(parsed.domain);
+  const p = await cachedScan(parsed.domain);
   const counts = { high: 0, medium: 0, low: 0 } as Record<Confidence, number>;
   for (const d of p.detections) counts[d.confidence]++;
   const groups = CATEGORY_ORDER.map((c) => [c, p.detections.filter((d) => d.category === c)] as const).filter(([, ds]) => ds.length);
@@ -239,6 +256,12 @@ export default async function Report({ params }: Params) {
               </ul>
             </details>
           )}
+
+          <p className="font-mono text-[11px] text-muted">
+            <Link href="/about" className="underline decoration-rule underline-offset-2 hover:text-accent">How detection works</Link>
+            {" · "}
+            <a href={OPTOUT_URL} className="underline decoration-rule underline-offset-2 hover:text-accent">Own this domain? Opt out</a>
+          </p>
 
           {p.errors.length > 0 && (
             <section>

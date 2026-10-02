@@ -11,6 +11,7 @@ import path from "node:path";
 import { aggregate, ruleCandidates } from "../lib/findings/aggregate";
 import { batchKey, batchShort } from "../lib/findings/batches";
 import { redetect, type ScanLine } from "../lib/findings/redetect";
+import { optedOut } from "../lib/optout";
 import type { Profile } from "../lib/types";
 import type { ListMeta } from "./fetch-yc";
 
@@ -55,7 +56,7 @@ function main() {
   const input = arg("--in") ?? latestScan(list);
   const metaFile = `data/lists/${list}.meta.json`;
   const meta: ListMeta | undefined = existsSync(metaFile) ? JSON.parse(readFileSync(metaFile, "utf8")) : undefined;
-  const optout = new Set(lines("data/optout.txt"));
+  const optout = optedOut();
   const listed = lines(`data/lists/${list}.txt`);
 
   const profiles = readProfiles(input).filter((p) => !optout.has(p.domain));
