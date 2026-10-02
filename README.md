@@ -10,6 +10,7 @@ pnpm scan linear.app        # scan from the terminal (add --json for the Profile
 pnpm test                   # offline: unit tests + saved fixtures
 pnpm fixture example.com    # snapshot a live scan into test/fixtures/<domain>/
 pnpm sync:fingerprints      # re-vendor webappanalyzer rules into data/fingerprints/
+pnpm build:rank             # data/rank.json: Tranco top 100k (traffic tier for the rough bill)
 pnpm typecheck && pnpm lint
 ```
 
@@ -24,6 +25,13 @@ pnpm aggregate                      # → data/findings.json (+ prints unmatched
 Each scan line stores the raw DNS/ASN data and the HTTP detections, so after adding a DNS rule you only re-run
 `pnpm aggregate`, not the scan. `/findings` and `/findings/<chart>` (one URL + OG image per chart) are static pages
 built from `data/findings.json`. Domains in `data/optout.txt` are never scanned and are dropped from the report.
+
+### Rough bill
+
+`lib/estimate/pricing.json` holds public list prices (USD/month) with a source URL, how it was verified and the date
+checked. Per-seat tools are multiplied by a headcount guess from the Tranco tier (S 1–10, M 10–100, L 100–1,000,
+XL 1,000+); flat tools walk up the published plan ladder by tier; usage-based tools are listed but never priced. No price,
+no number. Re-check prices every few months.
 
 ## How it works
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ConfidenceBadge, CONFIDENCE_HELP } from "@/components/confidence";
+import { Bill } from "@/components/bill";
 import { CopyLink } from "@/components/copy-link";
 import { EvidenceLine } from "@/components/evidence";
 import { CATEGORY_LABELS, CATEGORY_ORDER } from "@/lib/categories";
@@ -9,6 +10,7 @@ import { cachedScan } from "@/lib/cached-scan";
 import { OPTOUT_URL } from "@/lib/config";
 import { isOptedOut } from "@/lib/optout";
 import { InvalidDomainError, normalizeDomain } from "@/lib/safety";
+import { trancoMeta } from "@/lib/traffic";
 import type { Confidence, Detection, Profile } from "@/lib/types";
 
 export const revalidate = 86400;
@@ -150,11 +152,30 @@ export default async function Report({ params }: Params) {
             </time>
           </p>
         </div>
-        <div className="flex flex-wrap gap-2">
-          <CopyLink />
-          <a href={`/api/scan?domain=${p.domain}`} className="border border-rule-strong px-3 py-1.5 font-mono text-xs hover:bg-paper-2">
-            JSON
-          </a>
+        <div className="flex flex-col items-start gap-2 sm:items-end">
+          <div className="flex flex-wrap gap-2">
+            <CopyLink />
+            <a href={`/api/scan?domain=${p.domain}`} className="border border-rule-strong px-3 py-1.5 font-mono text-xs hover:bg-paper-2">
+              JSON
+            </a>
+          </div>
+          <form action="/go" method="get" className="flex">
+            <input type="hidden" name="d" value={p.domain} />
+            <label htmlFor="vs" className="sr-only">Compare with another domain</label>
+            <input
+              id="vs"
+              name="vs"
+              required
+              autoComplete="off"
+              autoCapitalize="none"
+              spellCheck={false}
+              placeholder="compare with…"
+              className="w-40 border border-r-0 border-rule-strong bg-paper px-2 py-1.5 font-mono text-xs placeholder:text-muted/70 focus:border-accent focus:outline-none"
+            />
+            <button type="submit" className="border border-rule-strong px-2.5 py-1.5 font-mono text-xs hover:bg-paper-2">
+              vs →
+            </button>
+          </form>
         </div>
       </div>
 
@@ -193,6 +214,7 @@ export default async function Report({ params }: Params) {
               ))}
             </section>
           ))}
+          {p.estimate && <Bill e={p.estimate} tranco={p.tranco} trancoSource={trancoMeta().source} />}
         </section>
 
         <aside className="space-y-8 text-sm">

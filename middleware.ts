@@ -28,6 +28,6 @@ export function middleware(req: NextRequest) {
 
 export const config = {
   // `/r/:domain` is one segment, so the report's opengraph-image (fetched by social crawlers) isn't limited.
-  matcher: ["/api/scan", "/r/:domain"],
+  matcher: ["/api/scan", "/r/:domain", "/compare/:a/:b"],
   runtime: "nodejs",
 };

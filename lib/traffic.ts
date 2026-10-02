@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import type { Tier } from "./types";
 
 /** XL ≤ 1k · L ≤ 10k · M ≤ 100k · S otherwise (including unranked). */
@@ -9,8 +11,26 @@ export function tierFor(rank: number | undefined): Tier {
   return "S";
 }
 
-/** Tranco rank lookup. Wired up in P3 (scripts/build-rank.ts → data/rank.json). */
+export type RankFile = { source: string; listId: string; date: string; domains: string[] };
+
+let ranks: { byDomain: Map<string, number>; meta: Omit<RankFile, "domains"> } | null = null;
+
+function load() {
+  if (ranks) return ranks;
+  try {
+    const file = JSON.parse(readFileSync(path.join(process.cwd(), "data", "rank.json"), "utf8")) as RankFile;
+    ranks = { byDomain: new Map(file.domains.map((d, i) => [d, i + 1])), meta: { source: file.source, listId: file.listId, date: file.date } };
+  } catch {
+    ranks = { byDomain: new Map(), meta: { source: "", listId: "", date: "" } };
+  }
+  return ranks;
+}
+
+/** Tranco rank (top 100k only; see scripts/build-rank.ts). */
 export function trancoRank(domain: string): number | undefined {
-  void domain;
-  return undefined;
+  return load().byDomain.get(domain);
+}
+
+export function trancoMeta() {
+  return load().meta;
 }

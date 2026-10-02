@@ -39,10 +39,25 @@ export type Detection = {
 
 export type Tier = "S" | "M" | "L" | "XL";
 
-/** Filled in P3 (rough bill). */
+/** USD per month. `null` as the upper bound means "open-ended" (custom or enterprise pricing above it). */
+export type Range = [number, number | null];
+
+export type EstimateLine = {
+  service: string;
+  basis: "plan" | "headcount guess" | "usage-based, not estimated" | "custom pricing, not estimated";
+  range?: Range;
+  note: string;
+  source: string;
+};
+
+/** Rough bill: public list prices × a traffic-size guess. Never the headline. */
 export type Estimate = {
-  lines: { service: string; range?: [number, number]; note: string }[];
-  total?: [number, number];
+  tier: Tier;
+  headcount: Range;
+  lines: EstimateLine[];
+  total?: Range;
+  /** Detected (medium+) services we have no price for. */
+  unpriced: string[];
 };
 
 export type NetworkInfo = {

@@ -1,11 +1,24 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { InvalidDomainError, normalizeDomain } from "@/lib/safety";
 
-/** Home form target: normalize whatever was typed, then go to the canonical report URL. Works without JS. */
+/**
+ * Form target (works without JS): normalize what was typed, then go to the
+ * canonical URL. `d` alone → /r/<d>; `d` + `vs` → /compare/<d>/<vs>.
+ */
 export function GET(req: NextRequest) {
   const input = req.nextUrl.searchParams.get("d") ?? "";
+  const vs = req.nextUrl.searchParams.get("vs");
   try {
-    return NextResponse.redirect(new URL(`/r/${normalizeDomain(input)}`, req.url), 303);
+    const a = normalizeDomain(input);
+    if (vs === null) return NextResponse.redirect(new URL(`/r/${a}`, req.url), 303);
+    let b: string;
+    try {
+      b = normalizeDomain(vs);
+    } catch (e) {
+      if (!(e instanceof InvalidDomainError)) throw e;
+      return NextResponse.redirect(new URL(`/r/${a}`, req.url), 303); // nothing valid to compare with
+    }
+    return NextResponse.redirect(new URL(a === b ? `/r/${a}` : `/compare/${a}/${b}`, req.url), 303);
   } catch (e) {
     if (!(e instanceof InvalidDomainError)) throw e;
     const back = new URL("/", req.url);

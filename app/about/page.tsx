@@ -67,6 +67,7 @@ export default function About() {
         {[
           ["signals", "Signals"],
           ["confidence", "Confidence"],
+          ["bill", "Rough bill"],
           ["never", "What we never do"],
           ["cant-see", "What we can't see"],
           ["bot", "The bot"],
@@ -124,6 +125,23 @@ export default function About() {
             No evidence, no detection. When signals disagree we show all of them and keep the strongest. The findings report
             counts medium and high only.
           </p>
+        </Section>
+
+        <Section id="bill" title="The rough bill">
+          <div className="max-w-2xl space-y-3 text-sm">
+            <p>
+              Each report has a collapsed <em>Rough monthly bill (estimate)</em>. It multiplies public list prices by a guess at
+              company size, taken from the site&apos;s rank in the{" "}
+              <a href="https://tranco-list.eu" className="underline decoration-rule underline-offset-2 hover:text-accent">Tranco</a>{" "}
+              top-sites list: XL is the top 1k, L the top 10k, M the top 100k, S everything else. Headcount guesses are 1–10,
+              10–100, 100–1,000 and 1,000+ people.
+            </p>
+            <p>
+              Usage-based services (Stripe, AWS, email volume…) are listed but never given a number, and neither is anything without
+              a published price. Every price links to its source and the date we checked it. Real spend depends on usage and
+              negotiated discounts, so treat it as an order of magnitude, nothing more.
+            </p>
+          </div>
         </Section>
 
         <Section id="never" title="What we never do">

@@ -1,5 +1,6 @@
 import { PROBE_TIMEOUT_MS, SCAN_TIMEOUT_MS } from "./config";
 import { detectFromAsn } from "./detect/asn";
+import { estimate } from "./estimate/estimate";
 import { detectFromDns } from "./detect/dns";
 import { detectFromHttp } from "./detect/fingerprints";
 import { merge } from "./detect/merge";
@@ -73,6 +74,7 @@ export function profileFromRecord(base: ProfileBase, rec: ScanRecord): Profile {
   const dns = rec.dns ? detectFromDns(rec.dns) : { detections: [], unmatched: { txt: [], spf: [] } };
   const detections = merge([...rec.httpDetections, ...dns.detections, ...(rec.asn ? detectFromAsn(rec.asn) : [])]);
   const tranco = trancoRank(base.domain);
+  const trafficTier = tierFor(tranco);
   return {
     domain: base.domain,
     scannedAt: base.scannedAt,
@@ -80,8 +82,9 @@ export function profileFromRecord(base: ProfileBase, rec: ScanRecord): Profile {
     detections,
     network: rec.asn,
     unmatched: dns.unmatched,
-    trafficTier: tierFor(tranco),
+    trafficTier,
     tranco,
+    estimate: estimate(detections, trafficTier),
     errors: base.errors,
   };
 }

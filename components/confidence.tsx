@@ -8,7 +8,8 @@ export const CONFIDENCE_HELP: Record<Confidence, string> = {
   low: "Indirect: mentioned in an allow-list header or similar hint",
 };
 
-export function ConfidenceBadge({ level }: { level: Confidence }) {
+/** `compact` hides the word on narrow screens (the bars and the title tooltip still carry it). */
+export function ConfidenceBadge({ level, compact = false }: { level: Confidence; compact?: boolean }) {
   const n = BARS[level];
   return (
     <span className={`inline-flex items-center gap-1.5 font-mono text-[11px] uppercase ${COLOR[level]}`} title={CONFIDENCE_HELP[level]}>
@@ -16,7 +17,7 @@ export function ConfidenceBadge({ level }: { level: Confidence }) {
         {"■".repeat(n)}
         <span className="opacity-30">{"■".repeat(3 - n)}</span>
       </span>
-      <span className="w-12">{level}</span>
+      <span className={compact ? "sr-only sm:not-sr-only sm:w-12" : "w-12"}>{level}</span>
     </span>
   );
 }

@@ -6,4 +6,4 @@ import { scan } from "./scan";
  * API, so sharing a link doesn't trigger extra requests to the scanned site.
  * Takes an already-normalized domain.
  */
-export const cachedScan = unstable_cache((domain: string) => scan(domain), ["scan-v1"], { revalidate: 86400 });
+export const cachedScan = unstable_cache((domain: string) => scan(domain), ["scan-v2"] /* bump when the Profile shape changes */, { revalidate: 86400 });

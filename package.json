@@ -14,7 +14,8 @@
     "typecheck": "tsc --noEmit",
     "fetch:yc": "tsx scripts/fetch-yc.ts",
     "scan:batch": "tsx scripts/scan-batch.ts",
-    "aggregate": "tsx scripts/aggregate.ts"
+    "aggregate": "tsx scripts/aggregate.ts",
+    "build:rank": "tsx scripts/build-rank.ts"
   },
   "dependencies": {
     "ipaddr.js": "^2.5.0",
