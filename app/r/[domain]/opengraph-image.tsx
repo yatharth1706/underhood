@@ -31,13 +31,16 @@ export default async function Image({ params }: { params: Promise<{ domain: stri
           <OgBrand />
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ fontSize: big, fontWeight: 600, letterSpacing: -2, lineHeight: 1 }}>{domain || "underhood"}</div>
-            <div style={{ display: "flex", marginTop: 22, fontSize: 32, color: OG.muted }}>
+            {/* Satori trims whitespace at the edges of each text run in a flex row, so space the parts with margins. */}
+            <div style={{ display: "flex", flexWrap: "wrap", marginTop: 22, fontSize: 32, color: OG.muted }}>
               {p ? (
                 <>
-                  runs on&nbsp;<span style={{ color: OG.ink, fontWeight: 700 }}>{`${all.length} vendors`}</span>&nbsp;{`across ${cats} categories`}
+                  <span>runs on</span>
+                  <span style={{ color: OG.ink, fontWeight: 700, margin: "0 10px" }}>{`${all.length} vendors`}</span>
+                  <span>{`across ${cats} ${cats === 1 ? "category" : "categories"}`}</span>
                 </>
               ) : (
-                "See what any company runs on, from its public footprint."
+                <span>See what any company runs on, from its public footprint.</span>
               )}
             </div>
           </div>

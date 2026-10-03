@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <style>rect{fill:#2f5bea}@media (prefers-color-scheme:dark){rect{fill:#7f9dff}}</style>
+  <!-- Same mark as the header logo: three rising bars (heights 7/12/16, width 4, gap 2). -->
+  <rect x="0" y="9" width="4" height="7" rx="1"/>
+  <rect x="6" y="4" width="4" height="12" rx="1"/>
+  <rect x="12" y="0" width="4" height="16" rx="1"/>
+</svg>
