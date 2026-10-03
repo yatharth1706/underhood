@@ -1,141 +1,134 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ChartBlock } from "@/components/findings/chart-block";
+import { ChartBody } from "@/components/findings/chart-block";
 import { CONTACT_URL } from "@/lib/config";
+import { batchShort } from "@/lib/findings/batches";
 import { charts, findings as f, pct } from "@/lib/findings/charts";
 
 const m = f.methodology;
-const vercel = f.hosting.find((s) => s.label === "Vercel");
+const n = m.ok.toLocaleString("en-US");
+const span = `${batchShort(f.list.batches[0])} – ${batchShort(f.list.batches.at(-1)!)}`;
+const hosts = f.hosting.filter((s) => !["Other", "Unknown"].includes(s.label));
+const [lead, ...others] = hosts;
+const next = others.slice(0, 2);
+const rest = Math.max(0, 1 - lead.share - next.reduce((a, s) => a + s.share, 0));
 const gw = f.emailWorkspace.find((s) => s.label === "Google Workspace");
-const next = f.frameworks.find((s) => s.label === "Next.js");
 const ai = f.ai[0];
-const firstBatch = f.list.batches[0];
-const lastBatch = f.list.batches.at(-1);
 
 export const metadata: Metadata = {
-  title: `What ${m.ok.toLocaleString("en-US")} YC startups run on`,
-  description: `${vercel ? `${pct(vercel.share)} host on Vercel. ` : ""}${gw ? `${pct(gw.share)} use Google Workspace. ` : ""}From public DNS, headers and HTML of ${f.list.title}.`,
+  title: `What ${n} YC startups run on`,
+  description: `${pct(lead.share)} host on ${lead.label}. ${gw ? `${pct(gw.share)} use Google Workspace. ` : ""}From public DNS, headers and HTML of ${f.list.title}.`,
 };
 
 const STATS = [
-  gw && { value: pct(gw.share), label: "run email on Google Workspace" },
-  next && { value: pct(next.share), label: "homepages built with Next.js" },
-  { value: pct(ai.share), label: "verified a domain with an AI vendor" },
-  { value: String(f.vendorCount.median), label: "vendors visible per company (median)" },
-].filter(Boolean) as { value: string; label: string }[];
+  { v: n, k: `startups scanned, ${span}` },
+  { v: String(f.vendorCount.median), k: "median vendors visible per company" },
+  gw && { v: pct(gw.share), k: "run email on Google Workspace" },
+  { v: pct(ai.share), k: "verified a domain with an AI vendor" },
+].filter(Boolean) as { v: string; k: string }[];
 
 export default function FindingsPage() {
   return (
-    <article className="pt-10">
-      <p className="label">
-        <Link href="/" className="hover:text-accent">Underhood</Link> / findings
-      </p>
-      <h1 className="mt-3 max-w-3xl text-4xl leading-[1.05] font-semibold tracking-tight sm:text-5xl [font-stretch:92%]">
-        What {m.ok.toLocaleString("en-US")} YC startups run on
-      </h1>
-      <p className="mt-4 max-w-2xl text-lg text-muted">
-        We scanned the public footprint of {m.scanned.toLocaleString("en-US")} YC companies from the {firstBatch} to {lastBatch}{" "}
-        batches: one homepage request plus DNS, SPF and TXT records. No logins, no crawling, evidence for every claim.
-      </p>
-
-      {vercel && (
-        <div className="mt-10 border-y-2 border-rule-strong py-6">
-          <p className="text-6xl font-semibold tracking-tight sm:text-7xl">{pct(vercel.share)}</p>
-          <p className="mt-1 max-w-lg text-lg">of their homepages are hosted on Vercel.</p>
+    <div className="mt-4 flex flex-col gap-4">
+      <section className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,380px),1fr))] items-end gap-8 rounded-[18px] bg-ink p-[clamp(24px,4vw,44px)] text-paper">
+        <div>
+          <div className="font-mono text-xs tracking-[0.06em] uppercase opacity-70">
+            Findings · {n} YC startups · {span}
+          </div>
+          <h1 className="mt-4 text-[clamp(30px,3.8vw,46px)] leading-[1.05] font-semibold tracking-[-0.03em] text-balance">
+            {pct(lead.share)} of recent YC startups host on {lead.label}.
+          </h1>
+          <p className="mt-3.5 max-w-[460px] text-base leading-normal opacity-75">
+            The same scanner, run over every company from {batchShort(f.list.batches[0])} to {batchShort(f.list.batches.at(-1)!)}. Single scans
+            miss things; this many don&apos;t.
+          </p>
         </div>
-      )}
-
-      <dl className="grid grid-cols-2 border-b border-rule sm:grid-cols-4">
-        {STATS.map((s) => (
-          <div key={s.label} className="border-r border-b border-rule py-4 pr-3 pl-0 last:border-r-0 sm:border-b-0 sm:pl-3 sm:first:pl-0 [&:nth-child(2)]:border-r-0 sm:[&:nth-child(2)]:border-r">
-            <dd className="text-3xl font-semibold">{s.value}</dd>
-            <dt className="mt-1 text-sm text-muted">{s.label}</dt>
-          </div>
-        ))}
-      </dl>
-
-      <nav aria-label="Charts" className="mt-8 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs">
-        {charts.map((c, i) => (
-          <a key={c.id} href={`#${c.id}`} className="text-muted hover:text-accent">
-            {String(i + 1).padStart(2, "0")} {c.title}
-          </a>
-        ))}
-      </nav>
-
-      <div className="mt-12 space-y-16">
-        {charts.map((c, i) => (
-          <ChartBlock key={c.id} chart={c} f={f} index={i} />
-        ))}
-      </div>
-
-      <section id="methodology" className="mt-20 scroll-mt-6 border-t-2 border-rule-strong pt-4">
-        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">Methodology</h2>
-        <div className="mt-4 grid gap-10 text-sm leading-relaxed lg:grid-cols-[1fr_18rem]">
-          <div className="max-w-2xl space-y-3">
-            <p>
-              <strong>The list.</strong> {f.list.title}: every company in YC&apos;s public directory from those batches with a
-              website on its own domain, excluding companies marked inactive. Source:{" "}
-              <a href={f.list.source} className="underline decoration-rule underline-offset-2 hover:text-accent">
-                yc-oss/api
-              </a>
-              , a community mirror of the YC directory.
-            </p>
-            <p>
-              <strong>The scan.</strong> One HTTPS request for each homepage (following at most 3 redirects), plus DNS lookups for
-              NS, MX, TXT, CNAME, DMARC and the IP owner of the first A record. At most 8 scans ran at a time, with the user agent{" "}
-              <code className="font-mono text-xs">UnderhoodBot</code>. Same detection code as every{" "}
-              <Link href="/" className="underline decoration-rule underline-offset-2 hover:text-accent">single scan</Link>.
-            </p>
-            <p>
-              <strong>What counts.</strong> Shares are out of the {m.ok.toLocaleString("en-US")} companies whose homepage answered.
-              Only medium- and high-confidence detections count: DNS verification records, SPF, MX, CNAME, provider headers,
-              scripts, cookie names and meta tags. Hints such as a host named in a security-policy header are left out.
-            </p>
-            <p>
-              <strong>What it can&apos;t see.</strong> Anything behind a login, on other subdomains, or loaded later by a tag manager
-              (most chat widgets and many analytics tools, which is why support tools barely show up here). Verification records
-              prove a company set up an account, not how much it uses it. Every number here is a lower bound.
-            </p>
-            <p>
-              <strong>Opting out.</strong> Site owners can ask to be excluded via{" "}
-              <a href={CONTACT_URL} className="underline decoration-rule underline-offset-2 hover:text-accent">
-                the project repo
-              </a>
-              ; opted-out domains are skipped and removed from these numbers.
-            </p>
-          </div>
-          <dl className="grid h-fit grid-cols-[1fr_auto] gap-x-4 gap-y-1.5 border-2 border-rule-strong p-4 font-mono text-xs">
-            <dt className="text-muted">Companies listed</dt>
-            <dd className="text-right">{m.listed.toLocaleString("en-US")}</dd>
-            <dt className="text-muted">Scanned</dt>
-            <dd className="text-right">{m.scanned.toLocaleString("en-US")}</dd>
-            <dt className="text-muted">Homepage answered</dt>
-            <dd className="text-right">{m.ok.toLocaleString("en-US")}</dd>
-            <dt className="text-muted">Failed</dt>
-            <dd className="text-right">
-              {m.failed} ({pct(m.failed / m.scanned, 1)})
-            </dd>
-            {m.failureReasons.map((r) => (
-              <FailureRow key={r.label} label={r.label} count={r.count} />
+        <div>
+          <div className="flex h-14 gap-[3px] overflow-hidden rounded-[10px]" role="img" aria-label={`${lead.label} ${pct(lead.share)}, ${next.map((h) => `${h.label} ${pct(h.share)}`).join(", ")}, everything else ${pct(rest)}`}>
+            <span className="flex items-end bg-accent p-2 text-[13px] font-semibold whitespace-nowrap text-on-accent" style={{ flex: lead.share }}>
+              {lead.label} {pct(lead.share)}
+            </span>
+            {next.map((h, i) => (
+              <span key={h.label} className="bg-paper" style={{ flex: h.share, opacity: [0.45, 0.32][i] }} />
             ))}
-            <dt className="text-muted">Opted out</dt>
-            <dd className="text-right">{m.optedOut}</dd>
-            <dt className="text-muted">Scan date</dt>
-            <dd className="text-right">{m.scanDates[0] === m.scanDates[1] ? m.scanDates[0] : `${m.scanDates[0]} – ${m.scanDates[1]}`}</dd>
-            <dt className="text-muted">Batches</dt>
-            <dd className="text-right">{f.list.batches.length}</dd>
-          </dl>
+            <span className="bg-paper opacity-[.16]" style={{ flex: rest }} />
+          </div>
+          <div className="mt-2 flex flex-wrap gap-4 text-xs opacity-70">
+            {next.map((h) => (
+              <span key={h.label}>
+                {h.label} {pct(h.share)}
+              </span>
+            ))}
+            <span>Everything else {pct(rest)}</span>
+          </div>
         </div>
       </section>
-    </article>
-  );
-}
 
-function FailureRow({ label, count }: { label: string; count: number }) {
-  return (
-    <>
-      <dt className="pl-3 text-muted">· {label}</dt>
-      <dd className="text-right text-muted">{count}</dd>
-    </>
+      <section className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3">
+        {STATS.map((s) => (
+          <div key={s.k} className="card px-[18px] py-4">
+            <div className="text-[34px] font-semibold tracking-[-0.03em]">{s.v}</div>
+            <div className="mt-0.5 text-[13px] text-muted">{s.k}</div>
+          </div>
+        ))}
+      </section>
+
+      <section className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,460px),1fr))] gap-4">
+        {charts.map((c, i) => (
+          <article key={c.id} id={c.id} className="card flex scroll-mt-4 flex-col p-5">
+            <div className="flex justify-between gap-3 text-xs text-muted">
+              <span>
+                <span className="font-mono">{String(i + 1).padStart(2, "0")}</span> · {c.title}
+              </span>
+              <Link href={`/findings/${c.id}`} className="font-semibold whitespace-nowrap text-accent hover:text-ink">
+                Open &amp; share ↗
+              </Link>
+            </div>
+            <h2 className="mt-1.5 mb-4 text-[19px] leading-tight font-semibold tracking-[-0.01em] text-balance">
+              <Link href={`/findings/${c.id}`} className="hover:text-accent">
+                {c.takeaway}
+              </Link>
+            </h2>
+            <ChartBody chart={c} f={f} />
+            {c.note && <p className="mt-auto pt-3.5 text-xs leading-normal text-muted">{c.note}</p>}
+          </article>
+        ))}
+      </section>
+
+      <section id="methodology" className="grid scroll-mt-4 grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3 text-sm leading-normal">
+        <div className="rounded-[14px] bg-paper-2 p-4">
+          <h2 className="font-semibold">List source</h2>
+          <p className="mt-1 text-muted">
+            YC&apos;s public directory via{" "}
+            <a href={f.list.source} className="underline decoration-rule-strong underline-offset-2 hover:text-accent">yc-oss/api</a>, {span}, inactive
+            companies excluded. {m.listed.toLocaleString("en-US")} listed, {n} scanned.
+          </p>
+        </div>
+        <div className="rounded-[14px] bg-paper-2 p-4">
+          <h2 className="font-semibold">Scan method</h2>
+          <p className="mt-1 text-muted">
+            One homepage fetch plus apex DNS, 8 at a time, as <code className="font-mono text-xs">UnderhoodBot</code>. Same code as every{" "}
+            <Link href="/" className="underline decoration-rule-strong underline-offset-2 hover:text-accent">single scan</Link>. Scanned{" "}
+            {m.scanDates[0] === m.scanDates[1] ? m.scanDates[0] : `${m.scanDates[0]} – ${m.scanDates[1]}`}.
+          </p>
+        </div>
+        <div className="rounded-[14px] bg-paper-2 p-4">
+          <h2 className="font-semibold">Failures</h2>
+          <p className="mt-1 text-muted">
+            {m.failed} skipped: {m.failureReasons.map((r) => `${r.count} ${r.label}`).join(", ")}
+            {m.optedOut > 0 && `; ${m.optedOut} opted out`}.
+          </p>
+        </div>
+        <div className="rounded-[14px] bg-paper-2 p-4">
+          <h2 className="font-semibold">What counts</h2>
+          <p className="mt-1 text-muted">
+            Medium confidence and up; low hints are excluded. Anything behind a login, on subdomains or loaded later by a tag manager is
+            invisible, so every number is a lower bound.{" "}
+            <a href={CONTACT_URL} className="underline decoration-rule-strong underline-offset-2 hover:text-accent">Opted-out</a> domains are
+            left out.
+          </p>
+        </div>
+      </section>
+    </div>
   );
 }

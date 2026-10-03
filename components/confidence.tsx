@@ -1,23 +1,35 @@
 import type { Confidence } from "@/lib/types";
 
-const BARS: Record<Confidence, number> = { high: 3, medium: 2, low: 1 };
-const COLOR: Record<Confidence, string> = { high: "text-high", medium: "text-medium", low: "text-low" };
 export const CONFIDENCE_HELP: Record<Confidence, string> = {
   high: "Hard proof: DNS verification, SPF, CNAME, MX or a provider's own response header",
   medium: "Seen in the page: a script, cookie name, meta tag or HTML marker",
   low: "Indirect: mentioned in an allow-list header or similar hint",
 };
 
-/** `compact` hides the word on narrow screens (the bars and the title tooltip still carry it). */
-export function ConfidenceBadge({ level, compact = false }: { level: Confidence; compact?: boolean }) {
-  const n = BARS[level];
-  return (
-    <span className={`inline-flex items-center gap-1.5 font-mono text-[11px] uppercase ${COLOR[level]}`} title={CONFIDENCE_HELP[level]}>
-      <span aria-hidden className="tracking-[-0.1em]">
-        {"■".repeat(n)}
-        <span className="opacity-30">{"■".repeat(3 - n)}</span>
+export const CONFIDENCE_TEXT: Record<Confidence, string> = { high: "text-high", medium: "text-medium", low: "text-low" };
+export const CONFIDENCE_BG: Record<Confidence, string> = { high: "bg-high", medium: "bg-medium", low: "bg-low" };
+
+/** Three-bar pill; `dot` is the compact form for narrow rows. */
+export function ConfidencePill({ level, dot = false }: { level: Confidence; dot?: boolean }) {
+  if (dot)
+    return (
+      <span className={`inline-flex items-center gap-[5px] text-xs font-semibold capitalize ${CONFIDENCE_TEXT[level]}`} title={CONFIDENCE_HELP[level]}>
+        <span className="size-[7px] rounded-full bg-current" />
+        {level}
       </span>
-      <span className={compact ? "sr-only sm:not-sr-only sm:w-12" : "w-12"}>{level}</span>
+    );
+  const on = { high: 3, medium: 2, low: 1 }[level];
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full bg-paper-2 py-[3px] pr-[9px] pl-[7px] text-xs font-semibold ${CONFIDENCE_TEXT[level]}`}
+      title={CONFIDENCE_HELP[level]}
+    >
+      <span aria-hidden className="flex gap-0.5">
+        {[1, 2, 3].map((i) => (
+          <span key={i} className="h-2.5 w-1 rounded-[1px] bg-current" style={{ opacity: i <= on ? 1 : 0.25 }} />
+        ))}
+      </span>
+      {level}
     </span>
   );
 }

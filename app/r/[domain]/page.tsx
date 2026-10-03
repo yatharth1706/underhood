@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ConfidenceBadge, CONFIDENCE_HELP } from "@/components/confidence";
+import { cache, Suspense } from "react";
 import { Bill } from "@/components/bill";
+import { CONFIDENCE_BG, CONFIDENCE_HELP, CONFIDENCE_TEXT } from "@/components/confidence";
 import { CopyLink } from "@/components/copy-link";
-import { EvidenceLine } from "@/components/evidence";
-import { CATEGORY_LABELS, CATEGORY_ORDER } from "@/lib/categories";
+import { RememberScan } from "@/components/recent";
+import { ScanProgress } from "@/components/report/progress";
+import { StackChips, StackFilter, StackMap, VendorList, type Group } from "@/components/report/stack";
+import { InvalidCard, OptedOutCard } from "@/components/states";
+import { CATEGORY_LABELS, CATEGORY_ORDER, CATEGORY_SHORT } from "@/lib/categories";
 import { cachedScan } from "@/lib/cached-scan";
 import { OPTOUT_URL } from "@/lib/config";
 import { isOptedOut } from "@/lib/optout";
 import { InvalidDomainError, normalizeDomain } from "@/lib/safety";
 import { trancoMeta } from "@/lib/traffic";
-import type { Confidence, Detection, Profile } from "@/lib/types";
+import type { Confidence, Profile } from "@/lib/types";
 
 export const revalidate = 86400;
 export const dynamicParams = true;
@@ -22,6 +26,9 @@ export async function generateStaticParams() {
 }
 
 type Params = { params: Promise<{ domain: string }> };
+
+/** The page streams: every section below awaits this one per-request promise. */
+const getScan = cache((domain: string) => cachedScan(domain));
 
 function parseParam(raw: string): { domain: string } | { error: string } {
   try {
@@ -36,7 +43,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const parsed = parseParam((await params).domain);
   if ("error" in parsed) return { title: "Not a public domain" };
   if (isOptedOut(parsed.domain)) return { title: `${parsed.domain} (opted out)`, robots: { index: false } };
-  const p = await cachedScan(parsed.domain);
+  const p = await getScan(parsed.domain);
   const top = p.detections.filter((d) => d.confidence !== "low").slice(0, 6).map((d) => d.service);
   return {
     title: `What ${p.domain} runs on`,
@@ -45,258 +52,360 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 const CDN_FRONTS = ["Cloudflare", "Fastly", "Akamai", "Amazon CloudFront", "Google Cloud CDN"];
+const CANT_SEE = [
+  "Databases and data stores, unless a verification record names one",
+  "Backend language and server frameworks",
+  "Internal infrastructure, private networks, VPN-only tools",
+  "App subdomains, logged-in product, mobile apps",
+  "SaaS that needs no DNS record or script",
+];
+const LEVELS = ["high", "medium", "low"] as const;
 
-function cantSee(p: Profile): string[] {
-  const out = [
-    "Databases and data stores, unless a vendor verification record names one",
-    "Backend language and server frameworks",
-    "Internal infrastructure, private networks, VPN-only tools",
-    "Anything not on the homepage or in apex DNS: app subdomains, logged-in product, mobile apps",
-    "SaaS that needs no DNS record or script (most tools are simply logged into)",
-  ];
-  const front = p.detections.find(
-    (d) => CDN_FRONTS.includes(d.service) && d.evidence.some((e) => e.source === "header"),
-  );
-  if (front) out.unshift(`Origin servers: traffic goes through ${front.service}, which hides what's behind it`);
-  return out;
+const PROBE_LABEL: Record<string, string> = { http: "Homepage", dns: "DNS", asn: "IP owner" };
+
+/** Why a scan came back empty, from the probe errors. */
+function emptyNotes(p: Profile): { k: string; v: string }[] {
+  const notes = p.errors.map((e) => {
+    const m = /^(\w+): (.*)$/.exec(e);
+    return m && PROBE_LABEL[m[1]] ? { k: PROBE_LABEL[m[1]], v: m[2] } : { k: "Probe", v: e };
+  });
+  if (!notes.some((n) => n.k === "Homepage")) notes.push({ k: "Homepage", v: "Answered, but no header, script, cookie or meta tag matched a fingerprint" });
+  if (!notes.some((n) => n.k === "DNS")) notes.push({ k: "DNS", v: "No MX, SPF, TXT verification, CNAME or NS record matched a known vendor" });
+  if (p.network) notes.push({ k: "IP owner", v: `AS${p.network.asn}${p.network.asName ? ` ${p.network.asName}` : ""}` });
+  return notes;
 }
 
-function Row({ d }: { d: Detection }) {
-  const [first, ...rest] = d.evidence;
-  return (
-    <details className="group border-b border-rule">
-      <summary className="grid grid-cols-[1fr_auto] items-start gap-x-4 gap-y-1 py-3 hover:bg-paper-2 sm:grid-cols-[14rem_1fr_auto]">
-        <span className="font-medium">
-          <span className="chev mr-2 inline-block font-mono text-xs text-muted transition-transform">▸</span>
-          {d.service}
-        </span>
-        <span className="col-span-2 row-start-2 truncate pl-5 font-mono text-xs text-muted sm:col-span-1 sm:row-start-auto sm:pl-0 sm:pt-0.5">
-          {first.detail}
-          {rest.length > 0 && <span className="ml-2 text-ink">+{rest.length}</span>}
-        </span>
-        <span className="col-start-2 row-start-1 sm:col-start-auto sm:row-start-auto">
-          <ConfidenceBadge level={d.confidence} />
-        </span>
-      </summary>
-      <div className="mb-3 ml-5 border-l border-rule-strong bg-paper-2 py-2 pr-3 pl-4">
-        <ul className="space-y-1">
-          {d.evidence.map((e, i) => (
-            <EvidenceLine key={i} e={e} />
-          ))}
-        </ul>
-        {d.website && (
-          <a href={d.website} rel="noopener noreferrer nofollow" target="_blank" className="mt-2 inline-block font-mono text-[11px] text-muted underline decoration-rule underline-offset-2 hover:text-accent">
-            {d.website.replace(/^https?:\/\//, "")} ↗
-          </a>
-        )}
-      </div>
-    </details>
-  );
-}
-
-function OptedOut({ domain }: { domain: string }) {
-  return (
-    <div className="pt-16">
-      <p className="label">Report</p>
-      <h1 className="mt-2 font-mono text-3xl break-all sm:text-5xl">{domain}</h1>
-      <p className="mt-4 max-w-xl text-muted">
-        The owner of this domain asked not to be scanned, so Underhood doesn&apos;t scan or show it and leaves it out of the
-        findings.
-      </p>
-      <Link href="/about#opt-out" className="mt-6 inline-block font-mono text-sm underline underline-offset-4 hover:text-accent">
-        How opting out works →
-      </Link>
-    </div>
-  );
-}
-
-function Invalid({ raw, error }: { raw: string; error: string }) {
-  return (
-    <div className="pt-16">
-      <p className="label">Report</p>
-      <h1 className="mt-2 font-mono text-3xl break-all">{decodeURIComponent(raw)}</h1>
-      <p className="mt-4 text-muted">Not something we can scan ({error}). Underhood only looks at public, registrable domains.</p>
-      <Link href="/" className="mt-6 inline-block font-mono text-sm underline underline-offset-4 hover:text-accent">
-        ← Try another domain
-      </Link>
-    </div>
-  );
+function groupsOf(p: Profile | null): Group[] {
+  return CATEGORY_ORDER.map((id) => ({
+    id,
+    label: CATEGORY_LABELS[id],
+    short: CATEGORY_SHORT[id],
+    rows: p ? p.detections.filter((d) => d.category === id) : [],
+  }));
 }
 
 export default async function Report({ params }: Params) {
   const raw = (await params).domain;
   const parsed = parseParam(raw);
-  if ("error" in parsed) return <Invalid raw={raw} error={parsed.error} />;
+  if ("error" in parsed) return <InvalidCard input={decodeURIComponent(raw)} reason={parsed.error} />;
   if (parsed.domain !== decodeURIComponent(raw)) redirect(`/r/${parsed.domain}`);
-  if (isOptedOut(parsed.domain)) return <OptedOut domain={parsed.domain} />;
+  const domain = parsed.domain;
+  if (isOptedOut(domain)) return <OptedOutCard domain={domain} />;
 
-  const p = await cachedScan(parsed.domain);
-  const counts = { high: 0, medium: 0, low: 0 } as Record<Confidence, number>;
-  for (const d of p.detections) counts[d.confidence]++;
-  const groups = CATEGORY_ORDER.map((c) => [c, p.detections.filter((d) => d.category === c)] as const).filter(([, ds]) => ds.length);
-  const scanned = new Date(p.scannedAt);
-  const unmatched = [...p.unmatched.txt.map((t) => `TXT ${t}`), ...p.unmatched.spf.map((s) => `SPF include:${s}`)];
-
+  // Everything outside a <Suspense> renders at once; the sections inside fill in when the scan lands.
   return (
-    <article className="pt-10">
-      <p className="label">
-        <Link href="/" className="hover:text-accent">Underhood</Link> / report
-      </p>
-      <div className="mt-2 flex flex-wrap items-end justify-between gap-4 border-b-2 border-rule-strong pb-5">
-        <div className="min-w-0">
-          <h1 className="font-mono text-4xl font-medium tracking-tight break-all sm:text-6xl">{p.domain}</h1>
-          <p className="mt-3 text-muted">
-            <span className="font-medium text-ink">{p.detections.length} vendors</span> detected from public signals ·{" "}
-            <time dateTime={p.scannedAt} className="font-mono text-xs">
-              scanned {scanned.toISOString().slice(0, 16).replace("T", " ")} UTC
-            </time>
-          </p>
-        </div>
-        <div className="flex flex-col items-start gap-2 sm:items-end">
-          <div className="flex flex-wrap gap-2">
-            <CopyLink />
-            <a href={`/api/scan?domain=${p.domain}`} className="border border-rule-strong px-3 py-1.5 font-mono text-xs hover:bg-paper-2">
-              JSON
-            </a>
-          </div>
-          <form action="/go" method="get" className="flex">
-            <input type="hidden" name="d" value={p.domain} />
-            <label htmlFor="vs" className="sr-only">Compare with another domain</label>
-            <input
-              id="vs"
-              name="vs"
-              required
-              autoComplete="off"
-              autoCapitalize="none"
-              spellCheck={false}
-              placeholder="compare with…"
-              className="w-40 border border-r-0 border-rule-strong bg-paper px-2 py-1.5 font-mono text-xs placeholder:text-muted/70 focus:border-accent focus:outline-none"
-            />
-            <button type="submit" className="border border-rule-strong px-2.5 py-1.5 font-mono text-xs hover:bg-paper-2">
-              vs →
-            </button>
-          </form>
-        </div>
-      </div>
+    <StackFilter>
+      <div className="mt-4 flex flex-wrap items-start gap-4">
+        <Suspense fallback={<StackMap all={groupsOf(null)} total={0} loading />}>
+          <StackMapSection domain={domain} />
+        </Suspense>
 
-      <dl className="grid grid-cols-2 border-b border-rule font-mono text-xs sm:grid-cols-4">
-        {(["high", "medium", "low"] as const).map((c) => (
-          <div key={c} className="border-r border-rule py-3 pr-3 last:border-r-0 [&:nth-child(2)]:border-r-0 sm:[&:nth-child(2)]:border-r" title={CONFIDENCE_HELP[c]}>
-            <dt className="label">{c} confidence</dt>
-            <dd className="mt-1 text-2xl text-ink">{counts[c]}</dd>
-          </div>
-        ))}
-        <div className="py-3 sm:pl-3">
-          <dt className="label">categories</dt>
-          <dd className="mt-1 text-2xl text-ink">{groups.length}</dd>
-        </div>
-      </dl>
+        <div className="flex min-w-0 flex-[999_1_560px] flex-col gap-4">
+          <section className="card p-5 sm:p-[22px]">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="flex min-w-0 items-center gap-3.5">
+                <span aria-hidden className="grid size-12 flex-none place-items-center rounded-xl border border-rule bg-paper-2 font-mono text-xl font-semibold">
+                  {domain[0].toUpperCase()}
+                </span>
+                <div className="min-w-0">
+                  <h1 className="font-mono text-[clamp(26px,3.4vw,36px)] font-medium tracking-[-0.03em] break-all">{domain}</h1>
+                  <div className="mt-1 truncate text-[13px] text-muted">
+                    <Suspense fallback="scanning now… usually 1–5 seconds">
+                      <MetaLine domain={domain} />
+                    </Suspense>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-1.5 text-[13px]">
+                <form action="/go" method="get" className="flex overflow-hidden rounded-[9px] border border-rule bg-paper-2">
+                  <input type="hidden" name="d" value={domain} />
+                  <label htmlFor="vs" className="sr-only">Compare with another domain</label>
+                  <input
+                    id="vs"
+                    name="vs"
+                    required
+                    autoComplete="off"
+                    autoCapitalize="none"
+                    spellCheck={false}
+                    placeholder="Compare with…"
+                    className="w-[140px] border-0 bg-transparent px-2.5 py-[7px] outline-none"
+                  />
+                  <button type="submit" className="border-l border-rule px-2.5 hover:bg-card">vs</button>
+                </form>
+                <a href={`/api/scan?domain=${domain}`} className="rounded-[9px] border border-rule px-[11px] py-[7px] font-mono text-xs whitespace-nowrap hover:bg-paper-2">
+                  {"{ } JSON"}
+                </a>
+                <CopyLink />
+              </div>
+            </div>
 
-      <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_17rem]">
-        <section aria-labelledby="runs-on">
-          <h2 id="runs-on" className="flex items-baseline justify-between border-b border-rule-strong pb-2">
-            <span className="text-2xl font-semibold tracking-tight">Runs on</span>
-            <span className="label">click a row for evidence</span>
-          </h2>
-          {groups.length === 0 && (
-            <p className="py-8 text-muted">
-              Nothing detected. Either the site gave nothing away or our probes failed (see the notes on the right).
-            </p>
-          )}
-          {groups.map(([cat, ds]) => (
-            <section key={cat} className="mt-7" aria-label={CATEGORY_LABELS[cat]}>
-              <h3 className="label flex justify-between border-b border-rule pb-1.5">
-                <span className="text-ink">{CATEGORY_LABELS[cat]}</span>
-                <span>{ds.length}</span>
-              </h3>
-              {ds.map((d) => (
-                <Row key={d.service} d={d} />
-              ))}
-            </section>
-          ))}
-          {p.estimate && <Bill e={p.estimate} tranco={p.tranco} trancoSource={trancoMeta().source} />}
-        </section>
-
-        <aside className="space-y-8 text-sm">
-          {p.network && (
-            <section>
-              <h2 className="label border-b border-rule-strong pb-1.5">Network</h2>
-              <dl className="mt-2 grid grid-cols-[4.5rem_1fr] gap-y-1 font-mono text-xs">
-                <dt className="text-muted">IP</dt>
-                <dd>{p.network.ip}</dd>
-                <dt className="text-muted">ASN</dt>
-                <dd>AS{p.network.asn}</dd>
-                {p.network.asName && (
-                  <>
-                    <dt className="text-muted">Owner</dt>
-                    <dd className="break-words">{p.network.asName}</dd>
-                  </>
-                )}
-                {p.network.prefix && (
-                  <>
-                    <dt className="text-muted">Prefix</dt>
-                    <dd>{p.network.prefix}</dd>
-                  </>
-                )}
-              </dl>
-            </section>
-          )}
-
-          <section className="border-2 border-rule-strong p-4">
-            <h2 className="label text-ink">What we can&apos;t see</h2>
-            <ul className="mt-3 space-y-2">
-              {cantSee(p).map((s) => (
-                <li key={s} className="flex gap-2 leading-snug">
-                  <span className="font-mono text-accent">×</span>
-                  <span>{s}</span>
-                </li>
-              ))}
-            </ul>
+            <Suspense
+              fallback={
+                <>
+                  <ScanProgress />
+                  <Counts />
+                </>
+              }
+            >
+              <CountsSection domain={domain} />
+            </Suspense>
           </section>
 
-          <section>
-            <h2 className="label border-b border-rule-strong pb-1.5">Confidence key</h2>
-            <ul className="mt-2 space-y-2">
-              {(["high", "medium", "low"] as const).map((c) => (
-                <li key={c}>
-                  <ConfidenceBadge level={c} />
-                  <p className="mt-0.5 text-xs text-muted">{CONFIDENCE_HELP[c]}</p>
-                </li>
-              ))}
-            </ul>
+          <Suspense fallback={<ResultsSkeleton />}>
+            <ResultsSection domain={domain} />
+          </Suspense>
+        </div>
+
+        <aside className="flex flex-[1_1_260px] flex-col gap-3 text-[13px]">
+          <Suspense fallback={<NetworkCard />}>
+            <NetworkSection domain={domain} />
+          </Suspense>
+
+          <Suspense fallback={<CantSeeCard items={CANT_SEE} />}>
+            <CantSeeSection domain={domain} />
+          </Suspense>
+
+          <section className="card p-4">
+            <h2 className="text-sm font-semibold">Confidence</h2>
+            {LEVELS.map((c) => (
+              <div key={c} className="mt-2.5">
+                <span className={`font-semibold capitalize ${CONFIDENCE_TEXT[c]}`}>● {c}</span>
+                <div className="mt-0.5 leading-[1.4] text-muted">{CONFIDENCE_HELP[c]}</div>
+              </div>
+            ))}
           </section>
 
-          {unmatched.length > 0 && (
-            <details>
-              <summary className="label border-b border-rule-strong pb-1.5 hover:text-ink">
-                <span className="chev mr-1 inline-block transition-transform">▸</span> Records we don&apos;t recognise yet ({unmatched.length})
-              </summary>
-              <ul className="mt-2 space-y-0.5 font-mono text-[11px] break-all text-muted">
-                {unmatched.map((u) => (
-                  <li key={u}>{u}</li>
-                ))}
-              </ul>
-            </details>
-          )}
+          <Suspense fallback={null}>
+            <ExtrasSection domain={domain} />
+          </Suspense>
 
-          <p className="font-mono text-[11px] text-muted">
-            <Link href="/about" className="underline decoration-rule underline-offset-2 hover:text-accent">How detection works</Link>
-            {" · "}
-            <a href={OPTOUT_URL} className="underline decoration-rule underline-offset-2 hover:text-accent">Own this domain? Opt out</a>
-          </p>
-
-          {p.errors.length > 0 && (
-            <section>
-              <h2 className="label border-b border-rule-strong pb-1.5">Probe notes</h2>
-              <ul className="mt-2 space-y-1 font-mono text-[11px] break-words text-muted">
-                {p.errors.map((e) => (
-                  <li key={e}>{e}</li>
-                ))}
-              </ul>
-            </section>
-          )}
+          <div className="flex flex-wrap gap-3 px-1.5 py-1 text-xs">
+            <Link href="/about" className="text-accent hover:text-ink">How detection works</Link>
+            <a href={OPTOUT_URL} className="text-accent hover:text-ink">Own this domain? Opt out</a>
+          </div>
         </aside>
       </div>
-    </article>
+    </StackFilter>
+  );
+}
+
+// ---- streamed sections: each awaits the shared scan ----
+
+async function StackMapSection({ domain }: { domain: string }) {
+  const p = await getScan(domain);
+  if (!p.detections.length) return null;
+  return <StackMap all={groupsOf(p)} total={p.detections.length} />;
+}
+
+async function MetaLine({ domain }: { domain: string }) {
+  const p = await getScan(domain);
+  const net = p.network;
+  return (
+    <>
+      <time dateTime={p.scannedAt}>scanned {p.scannedAt.slice(0, 16).replace("T", " ")} UTC</time>
+      {net && ` · ${net.ip} · AS${net.asn}${net.asName ? ` ${net.asName}` : ""}`}
+    </>
+  );
+}
+
+async function CountsSection({ domain }: { domain: string }) {
+  const p = await getScan(domain);
+  const counts: Record<Confidence, number> = { high: 0, medium: 0, low: 0 };
+  for (const d of p.detections) counts[d.confidence]++;
+  return (
+    <>
+      <RememberScan domain={p.domain} vendors={p.detections.length} />
+      <Counts total={p.detections.length} categories={new Set(p.detections.map((d) => d.category)).size} counts={counts} />
+    </>
+  );
+}
+
+/** Headline number and confidence split; with no props, the placeholder shown while scanning. */
+function Counts({ total, categories, counts }: { total?: number; categories?: number; counts?: Record<Confidence, number> }) {
+  const loading = total === undefined;
+  return (
+    <div className="mt-[22px] grid grid-cols-[auto_minmax(0,1fr)] items-end gap-x-7 gap-y-2">
+      <div>
+        <div className={`text-[52px] leading-[.9] font-semibold tracking-[-0.04em] ${loading ? "text-rule-strong" : ""}`}>{loading ? "–" : total}</div>
+        <div className="mt-1.5 text-[13px] whitespace-nowrap text-muted">
+          {loading ? "vendors found so far" : `vendors in ${categories} ${categories === 1 ? "category" : "categories"}`}
+        </div>
+      </div>
+      <div>
+        <div className="flex h-2.5 gap-0.5 overflow-hidden rounded-[5px] bg-paper-2" aria-hidden>
+          {counts && LEVELS.map((c) => <span key={c} className={CONFIDENCE_BG[c]} style={{ flex: counts[c] }} />)}
+        </div>
+        <div className="mt-2 flex flex-wrap gap-x-[18px] gap-y-1 text-[13px]">
+          {LEVELS.map((c) => (
+            <span key={c} className="whitespace-nowrap" title={CONFIDENCE_HELP[c]}>
+              <span className={CONFIDENCE_TEXT[c]}>●</span> {counts ? counts[c] : "–"} {c}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+async function ResultsSection({ domain }: { domain: string }) {
+  const p = await getScan(domain);
+  const total = p.detections.length;
+  if (total === 0)
+    return (
+      <section className="card p-6 sm:p-7">
+        <div className="flex items-center gap-2.5">
+          <span aria-hidden className="grid size-8 place-items-center rounded-[9px] bg-paper-2 font-mono text-muted">∅</span>
+          <h2 className="text-xl font-semibold tracking-[-0.01em]">Nothing detected</h2>
+        </div>
+        <p className="mt-3 max-w-[560px] text-[15px] leading-[1.55] text-pretty text-muted">
+          This site gave nothing away, or our probes didn&apos;t get through. No evidence means no detection, so we show nothing rather than
+          guess.
+        </p>
+        <div className="mt-[18px] flex flex-col gap-1.5">
+          {emptyNotes(p).map((e, i) => (
+            <div key={i} className="grid grid-cols-[100px_1fr] items-baseline gap-3 rounded-lg bg-paper-2 px-3 py-[9px] text-[13px] sm:grid-cols-[120px_1fr]">
+              <span className="font-mono text-xs font-medium">{e.k}</span>
+              <span className="break-words text-muted">{e.v}</span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-[18px] flex flex-wrap gap-2 text-[13px]">
+          <Link href="/" className="rounded-[9px] bg-accent px-[13px] py-2 font-semibold text-on-accent hover:brightness-110">
+            Scan another domain
+          </Link>
+          <Link href="/about" className="rounded-[9px] border border-rule px-[13px] py-2 hover:bg-paper-2">
+            How detection works
+          </Link>
+        </div>
+      </section>
+    );
+  const groups = groupsOf(p).filter((g) => g.rows.length);
+  return (
+    <>
+      <StackChips groups={groups} total={total} />
+      <VendorList groups={groups} />
+      {p.estimate && <Bill e={p.estimate} tranco={p.tranco} trancoSource={trancoMeta().source} />}
+    </>
+  );
+}
+
+function ResultsSkeleton() {
+  return (
+    <>
+      <div className="flex items-baseline justify-between px-1 pt-1">
+        <h2 className="text-xl font-semibold tracking-[-0.01em]">Runs on</h2>
+        <span className="text-[13px] text-muted">Waiting for probes…</span>
+      </div>
+      {[3, 1, 2].map((rows, i) => (
+        <section key={i} className="card overflow-hidden" aria-hidden>
+          <div className="border-b border-rule px-4 py-2.5">
+            <span className="block h-3 w-28 animate-pulse rounded bg-paper-2" />
+          </div>
+          {Array.from({ length: rows }, (_, k) => (
+            <div key={k} className="-mt-px grid grid-cols-[28px_minmax(0,1fr)_auto] items-center gap-3 border-t border-rule px-4 py-[11px]">
+              <span className="size-7 animate-pulse rounded-[7px] bg-paper-2" />
+              <span className="h-3.5 animate-pulse rounded bg-paper-2" style={{ width: `${40 + ((i * 3 + k) % 4) * 12}%` }} />
+              <span className="h-5 w-16 animate-pulse rounded-full bg-paper-2" />
+            </div>
+          ))}
+        </section>
+      ))}
+    </>
+  );
+}
+
+async function NetworkSection({ domain }: { domain: string }) {
+  const p = await getScan(domain);
+  return p.network ? <NetworkCard net={p.network} /> : null;
+}
+
+/** Without `net`, the placeholder rows shown while scanning. */
+function NetworkCard({ net }: { net?: NonNullable<Profile["network"]> }) {
+  const rows: [string, string | undefined][] = net
+    ? [
+        ["IP", net.ip],
+        ["ASN", `AS${net.asn}`],
+        ["Owner", net.asName],
+        ["Prefix", net.prefix],
+      ]
+    : [
+        ["IP", ""],
+        ["ASN", ""],
+        ["Owner", ""],
+        ["Prefix", ""],
+      ];
+  return (
+    <section className="card p-4">
+      <h2 className="text-sm font-semibold">Network</h2>
+      <dl className="mt-2.5 grid grid-cols-[56px_1fr] gap-y-1.5 font-mono text-xs">
+        {rows
+          .filter(([, v]) => v !== undefined)
+          .map(([k, v]) => (
+            <div key={k} className="contents">
+              <dt className="text-muted">{k}</dt>
+              <dd className="break-words">{net ? v : <span className="inline-block h-3 w-24 animate-pulse rounded bg-paper-2 align-middle" />}</dd>
+            </div>
+          ))}
+      </dl>
+    </section>
+  );
+}
+
+async function CantSeeSection({ domain }: { domain: string }) {
+  const p = await getScan(domain);
+  const front = p.detections.find((d) => CDN_FRONTS.includes(d.service) && d.evidence.some((e) => e.source === "header"));
+  return <CantSeeCard items={front ? [`Origin servers: traffic goes through ${front.service}, which hides what's behind it`, ...CANT_SEE] : CANT_SEE} />;
+}
+
+function CantSeeCard({ items }: { items: string[] }) {
+  return (
+    <section className="rounded-[14px] bg-paper-2 p-4">
+      <h2 className="text-sm font-semibold">What we can&apos;t see</h2>
+      <ul className="mt-2.5 flex flex-col gap-2">
+        {items.map((s) => (
+          <li key={s} className="grid grid-cols-[14px_1fr] gap-1.5 leading-[1.4] text-muted">
+            <span className="text-ink">–</span>
+            <span className="text-pretty">{s}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+async function ExtrasSection({ domain }: { domain: string }) {
+  const p = await getScan(domain);
+  const unmatched = [...p.unmatched.txt.map((t) => `TXT ${t}`), ...p.unmatched.spf.map((s) => `SPF include:${s}`)];
+  return (
+    <>
+      {unmatched.length > 0 && (
+        <details className="card px-4 py-3.5">
+          <summary className="flex justify-between">
+            <span className="text-sm font-semibold">
+              Unrecognised records <span className="font-normal text-muted">{unmatched.length}</span>
+            </span>
+            <span aria-hidden className="text-muted">
+              <span className="when-closed">+</span>
+              <span className="when-open">−</span>
+            </span>
+          </summary>
+          <ul className="mt-2.5 flex flex-col gap-1 font-mono text-[11px] break-all text-muted">
+            {unmatched.map((u) => (
+              <li key={u}>{u}</li>
+            ))}
+          </ul>
+        </details>
+      )}
+      {p.detections.length > 0 && p.errors.length > 0 && (
+        <section className="card p-4">
+          <h2 className="text-sm font-semibold">Probe notes</h2>
+          <ul className="mt-2 flex flex-col gap-1 font-mono text-[11px] break-words text-muted">
+            {p.errors.map((e) => (
+              <li key={e}>{e}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </>
   );
 }

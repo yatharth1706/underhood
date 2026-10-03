@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import fingerprints from "@/data/fingerprints/technologies.json";
-import { ConfidenceBadge, CONFIDENCE_HELP } from "@/components/confidence";
+import { CONFIDENCE_HELP, CONFIDENCE_TEXT } from "@/components/confidence";
 import { OPTOUT_URL, SOURCE_URL, USER_AGENT } from "@/lib/config";
 import { DNS_RULES } from "@/lib/detect/dns-rules";
+import { Toc } from "@/components/toc";
 
 export const metadata: Metadata = {
   title: "How it works",
@@ -40,188 +40,168 @@ const CANT_SEE = [
   "How much a company uses a tool. A verification record only proves an account exists",
 ];
 
-function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
+
+const TOC = [
+  ["signals", "Signals"],
+  ["confidence", "Confidence"],
+  ["bill", "Rough bill"],
+  ["never", "What we never do"],
+  ["cant-see", "What we can't see"],
+  ["bot", "The bot"],
+  ["opt-out", "Opt out"],
+  ["credits", "Credits"],
+] as const;
+
+const link = "text-accent hover:text-ink";
+
+function Section({ id, title, children, muted = false }: { id: string; title: string; children: React.ReactNode; muted?: boolean }) {
   return (
-    <section id={id} className="scroll-mt-6 border-t-2 border-rule-strong pt-4">
-      <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{title}</h2>
-      <div className="mt-4">{children}</div>
+    <section id={id} className={`scroll-mt-4 rounded-[14px] p-5 sm:p-6 ${muted ? "bg-paper-2" : "card"}`}>
+      <h2 className="text-lg font-semibold tracking-[-0.01em]">{title}</h2>
+      <div className="mt-3 text-[15px] leading-[1.55]">{children}</div>
     </section>
+  );
+}
+
+function Bullets({ items, mark }: { items: string[]; mark: string }) {
+  return (
+    <ul className="flex flex-col gap-2">
+      {items.map((s) => (
+        <li key={s} className="grid grid-cols-[16px_1fr] gap-1.5">
+          <span className="text-muted">{mark}</span>
+          <span>{s}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
 
 export default function About() {
   const fingerprintCount = Object.keys(fingerprints).length;
   return (
-    <article className="pt-10">
-      <p className="label">
-        <Link href="/" className="hover:text-accent">Underhood</Link> / about
-      </p>
-      <h1 className="mt-3 max-w-3xl text-4xl leading-[1.05] font-semibold tracking-tight sm:text-5xl [font-stretch:92%]">
-        How Underhood works
-      </h1>
-      <p className="mt-4 max-w-2xl text-lg text-muted">
-        Underhood reads the public footprint every website already gives out: the response to one homepage request, plus DNS
-        records anyone can look up. Every detection comes with the record it came from, so you can check it yourself.
-      </p>
-      <nav className="mt-6 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs">
-        {[
-          ["signals", "Signals"],
-          ["confidence", "Confidence"],
-          ["bill", "Rough bill"],
-          ["never", "What we never do"],
-          ["cant-see", "What we can't see"],
-          ["bot", "The bot"],
-          ["opt-out", "Opt out"],
-          ["credits", "Credits"],
-        ].map(([id, label]) => (
-          <a key={id} href={`#${id}`} className="text-muted hover:text-accent">
-            {label}
-          </a>
-        ))}
-      </nav>
+    <div className="mt-4 flex flex-wrap items-start gap-4">
+      <Toc items={TOC} />
 
-      <div className="mt-12 space-y-14">
-        <Section id="signals" title="Signals we read">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[42rem] text-sm">
-              <thead>
-                <tr className="label border-b border-rule-strong text-left">
-                  <th className="py-1.5 pr-4 font-normal">Signal</th>
-                  <th className="py-1.5 pr-4 font-normal">What we read</th>
-                  <th className="py-1.5 pr-4 font-normal">What it tells us</th>
-                  <th className="py-1.5 font-normal">Evidence looks like</th>
-                </tr>
-              </thead>
-              <tbody>
-                {SIGNALS.map((s) => (
-                  <tr key={s.signal} className="border-b border-rule align-top">
-                    <th scope="row" className="py-2.5 pr-4 text-left font-mono text-xs font-medium whitespace-nowrap">{s.signal}</th>
-                    <td className="py-2.5 pr-4 text-muted">{s.read}</td>
-                    <td className="py-2.5 pr-4">{s.tells}</td>
-                    <td className="py-2.5 font-mono text-xs break-all">{s.example}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-4 max-w-2xl text-sm text-muted">
-            Matching uses {DNS_RULES.length} DNS rules of our own (most found by scanning startups and looking at records we
-            didn&apos;t recognise yet) and {fingerprintCount.toLocaleString("en-US")} page fingerprints from the open
-            webappanalyzer project. TXT, MX and NS are read at the apex only: on www they would follow the CNAME and describe the
-            host instead.
+      <div className="flex max-w-[760px] min-w-0 flex-[1_1_560px] flex-col gap-4">
+        <section className="card p-6 sm:p-7">
+          <h1 className="text-[clamp(30px,3.6vw,42px)] leading-[1.05] font-semibold tracking-[-0.03em]">How Underhood works</h1>
+          <p className="mt-3 text-[17px] leading-[1.55] text-pretty text-muted">
+            One homepage request and a handful of DNS lookups. Everything we show, anyone could see. We read it carefully and show our
+            work: every detection comes with the record it came from.
           </p>
-        </Section>
+        </section>
 
-        <Section id="confidence" title="Confidence">
-          <ul className="max-w-2xl space-y-3">
-            {(["high", "medium", "low"] as const).map((c) => (
-              <li key={c} className="grid gap-1 sm:grid-cols-[8rem_1fr]">
-                <ConfidenceBadge level={c} />
-                <span className="text-sm">{CONFIDENCE_HELP[c]}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 max-w-2xl text-sm text-muted">
-            No evidence, no detection. When signals disagree we show all of them and keep the strongest. The findings report
-            counts medium and high only.
+        <section id="signals" className="card scroll-mt-4 px-5 py-2">
+          <h2 className="sr-only">Signals we read</h2>
+          {SIGNALS.map((s) => (
+            <div key={s.signal} className="grid gap-x-4 gap-y-1 border-b border-rule py-3.5 last:border-b-0 sm:grid-cols-[150px_1fr]">
+              <span className="text-sm font-semibold">{s.signal}</span>
+              <div className="text-[15px] leading-normal">
+                <div>{s.tells}</div>
+                <div className="text-[13px] text-muted">{s.read}</div>
+                <code className="mt-1.5 inline-block rounded-md bg-paper-2 px-2 py-[3px] font-mono text-xs break-all">{s.example}</code>
+              </div>
+            </div>
+          ))}
+          <p className="py-3.5 text-[13px] leading-normal text-muted">
+            Matching uses {DNS_RULES.length} DNS rules of our own (most found by scanning startups and looking at records we didn&apos;t
+            recognise yet) and {fingerprintCount.toLocaleString("en-US")} page fingerprints from the open webappanalyzer project. TXT, MX
+            and NS are read at the apex only: on www they would follow the CNAME and describe the host instead.
           </p>
-        </Section>
+        </section>
+
+        <section id="confidence" className="grid scroll-mt-4 grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-3">
+          <h2 className="sr-only">Confidence</h2>
+          {(["high", "medium", "low"] as const).map((c) => (
+            <div key={c} className="card p-4">
+              <div className={`font-semibold capitalize ${CONFIDENCE_TEXT[c]}`}>● {c}</div>
+              <div className="mt-1.5 text-[13px] leading-[1.45] text-muted">{CONFIDENCE_HELP[c]}</div>
+            </div>
+          ))}
+          <p className="col-span-full px-1 text-[13px] text-muted">
+            No evidence, no detection. When signals disagree we show all of them and keep the strongest. The findings report counts medium
+            and high only.
+          </p>
+        </section>
 
         <Section id="bill" title="The rough bill">
-          <div className="max-w-2xl space-y-3 text-sm">
-            <p>
-              Each report has a collapsed <em>Rough monthly bill (estimate)</em>. It multiplies public list prices by a guess at
-              company size, taken from the site&apos;s rank in the{" "}
-              <a href="https://tranco-list.eu" className="underline decoration-rule underline-offset-2 hover:text-accent">Tranco</a>{" "}
-              top-sites list: XL is the top 1k, L the top 10k, M the top 100k, S everything else. Headcount guesses are 1–10,
-              10–100, 100–1,000 and 1,000+ people.
-            </p>
-            <p>
-              Usage-based services (Stripe, AWS, email volume…) are listed but never given a number, and neither is anything without
-              a published price. Every price links to its source and the date we checked it. Real spend depends on usage and
-              negotiated discounts, so treat it as an order of magnitude, nothing more.
-            </p>
-          </div>
+          <p>
+            Each report has a collapsed <em>Rough monthly bill (estimate)</em>. It multiplies public list prices by a guess at company size,
+            taken from the site&apos;s rank in the <a href="https://tranco-list.eu" className={link}>Tranco</a> top-sites list: XL is the
+            top 1k, L the top 10k, M the top 100k, S everything else. Headcount guesses are 1–10, 10–100, 100–1,000 and 1,000+ people.
+          </p>
+          <p className="mt-3 text-muted">
+            Usage-based services (Stripe, AWS, email volume…) are listed but never given a number, and neither is anything without a
+            published price. Every price links to its source. Treat it as an order of magnitude, nothing more.
+          </p>
         </Section>
 
-        <Section id="never" title="What we never do">
-          <ul className="max-w-2xl space-y-2 text-sm">
-            {NEVER.map((s) => (
-              <li key={s} className="flex gap-2">
-                <span className="font-mono text-accent">×</span>
-                {s}
-              </li>
-            ))}
-          </ul>
+        <Section id="never" title="What we never do" muted>
+          <Bullets items={NEVER} mark="×" />
         </Section>
 
-        <Section id="cant-see" title="What we can't see">
-          <ul className="max-w-2xl space-y-2 text-sm">
-            {CANT_SEE.map((s) => (
-              <li key={s} className="flex gap-2">
-                <span className="font-mono text-muted">–</span>
-                {s}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 max-w-2xl text-sm text-muted">So a report is a lower bound: what&apos;s listed is there, but plenty more probably is too.</p>
+        <Section id="cant-see" title="What we can't see" muted>
+          <Bullets items={CANT_SEE} mark="–" />
+          <p className="mt-3 text-muted">So a report is a lower bound: what&apos;s listed is there, but plenty more probably is too.</p>
         </Section>
 
         <Section id="bot" title="The bot">
-          <dl className="grid max-w-2xl grid-cols-[9rem_1fr] gap-x-4 gap-y-2 text-sm">
-            <dt className="font-mono text-xs text-muted">User agent</dt>
+          <dl className="grid grid-cols-[110px_1fr] gap-x-4 gap-y-2 text-sm sm:grid-cols-[140px_1fr]">
+            <dt className="text-muted">User agent</dt>
             <dd className="font-mono text-xs break-all">{USER_AGENT}</dd>
-            <dt className="font-mono text-xs text-muted">Per scan</dt>
+            <dt className="text-muted">Per scan</dt>
             <dd>One GET to the homepage, at most 3 redirects, 4-second timeout, first 1.5 MB read</dd>
-            <dt className="font-mono text-xs text-muted">Caching</dt>
+            <dt className="text-muted">Caching</dt>
             <dd>Each domain is scanned at most once a day; reports and the API reuse that result</dd>
-            <dt className="font-mono text-xs text-muted">Rate limits</dt>
+            <dt className="text-muted">Rate limits</dt>
             <dd>10 API scans and 30 report views per minute per visitor</dd>
-            <dt className="font-mono text-xs text-muted">Batch scans</dt>
+            <dt className="text-muted">Batch scans</dt>
             <dd>For the findings report: at most 8 sites at a time, one request each, run by hand, not on a schedule</dd>
           </dl>
         </Section>
 
         <Section id="opt-out" title="Opt out">
-          <div className="max-w-2xl space-y-3 text-sm">
-            <p>
-              If you run a domain and don&apos;t want it scanned,{" "}
-              <a href={OPTOUT_URL} className="font-medium underline decoration-rule underline-offset-2 hover:text-accent">
-                open an opt-out request
-              </a>{" "}
-              with the domain name. We may ask you to confirm you control it, for example by adding a TXT record.
-            </p>
-            <p>Once it&apos;s added to the opt-out list:</p>
-            <ul className="space-y-1.5 pl-1">
-              <li className="flex gap-2"><span className="font-mono text-accent">→</span>its report page shows &quot;opted out&quot; instead of a scan</li>
-              <li className="flex gap-2"><span className="font-mono text-accent">→</span>the API refuses to scan it</li>
-              <li className="flex gap-2"><span className="font-mono text-accent">→</span>batch scans skip it and the findings leave it out</li>
-            </ul>
+          <p>
+            If you run a domain and don&apos;t want it scanned,{" "}
+            <a href={OPTOUT_URL} className={`font-semibold ${link}`}>open an opt-out request</a> with the domain name. We may ask you to
+            confirm you control it, for example by adding a TXT record. Once it&apos;s on the opt-out list:
+          </p>
+          <div className="mt-3 grid grid-cols-2 gap-1.5 sm:grid-cols-4">
+            {[
+              ["Reports", "show “opted out”"],
+              ["API", "refuses to scan"],
+              ["Batch scans", "skip it"],
+              ["Findings", "leave it out"],
+            ].map(([k, v]) => (
+              <div key={k} className="rounded-[9px] bg-paper-2 p-2.5 text-xs">
+                <div className="text-muted">{k}</div>
+                <div className="mt-0.5 font-semibold">{v}</div>
+              </div>
+            ))}
           </div>
         </Section>
 
         <Section id="credits" title="Credits">
-          <ul className="max-w-2xl space-y-2 text-sm">
+          <ul className="flex flex-col gap-1.5 text-sm">
             <li>
-              Page fingerprints:{" "}
-              <a href="https://github.com/enthec/webappanalyzer" className="underline decoration-rule underline-offset-2 hover:text-accent">webappanalyzer</a>{" "}
-              (GPL-3.0), the community fork of the open Wappalyzer rules.
+              Page fingerprints: <a href="https://github.com/enthec/webappanalyzer" className={link}>webappanalyzer</a> (GPL-3.0), the
+              community fork of the open Wappalyzer rules.
             </li>
             <li>
-              IP-to-ASN lookups:{" "}
-              <a href="https://www.team-cymru.com/ip-asn-mapping" className="underline decoration-rule underline-offset-2 hover:text-accent">Team Cymru</a>.
+              IP-to-ASN lookups: <a href="https://www.team-cymru.com/ip-asn-mapping" className={link}>Team Cymru</a>.
             </li>
             <li>
-              YC company list:{" "}
-              <a href="https://github.com/yc-oss/api" className="underline decoration-rule underline-offset-2 hover:text-accent">yc-oss/api</a>.
+              YC company list: <a href="https://github.com/yc-oss/api" className={link}>yc-oss/api</a>.
             </li>
             <li>
-              Source code:{" "}
-              <a href={SOURCE_URL} className="underline decoration-rule underline-offset-2 hover:text-accent">GitHub</a>.
+              Logos: <a href="https://simpleicons.org" className={link}>Simple Icons</a>.
+            </li>
+            <li>
+              Source code: <a href={SOURCE_URL} className={link}>GitHub</a>.
             </li>
           </ul>
         </Section>
       </div>
-    </article>
+    </div>
   );
 }

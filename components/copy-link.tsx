@@ -2,23 +2,24 @@
 
 import { useState } from "react";
 
-export function CopyLink() {
+export function CopyLink({ url, className = "" }: { url?: string; className?: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <button
       type="button"
       onClick={async () => {
+        const href = url ? new URL(url, window.location.href).href : window.location.href;
         try {
-          await navigator.clipboard.writeText(window.location.href);
+          await navigator.clipboard.writeText(href);
           setCopied(true);
           setTimeout(() => setCopied(false), 1600);
         } catch {
-          window.prompt("Copy this link", window.location.href);
+          window.prompt("Copy this link", href);
         }
       }}
-      className="border border-rule-strong bg-ink px-3 py-1.5 font-mono text-xs text-paper hover:bg-accent hover:border-accent"
+      className={`rounded-[9px] bg-accent px-[13px] py-[7px] font-semibold whitespace-nowrap text-on-accent hover:brightness-110 ${className}`}
     >
-      {copied ? "Copied ✓" : "Share · copy link"}
+      {copied ? "Copied ✓" : "Copy link"}
     </button>
   );
 }

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
-import { OG, OG_SIZE, OgFrame } from "@/components/og/frame";
+import { OG, OG_SIZE, OgBrand, OgFrame, OgTile } from "@/components/og/frame";
 import { cachedScan } from "@/lib/cached-scan";
-import { CATEGORY_LABELS } from "@/lib/categories";
+import { CATEGORY_SHORT } from "@/lib/categories";
 import { isOptedOut } from "@/lib/optout";
 import { normalizeDomain } from "@/lib/safety";
 
@@ -18,28 +18,49 @@ export default async function Image({ params }: { params: Promise<{ domain: stri
     domain = "";
   }
   const p = domain && !isOptedOut(domain) ? await cachedScan(domain) : undefined;
-  const shown = p?.detections.filter((d) => d.confidence !== "low") ?? [];
-  const top = shown.slice(0, 5);
+  const all = p?.detections ?? [];
+  const top = all.filter((d) => d.confidence !== "low").slice(0, 5);
+  const cats = new Set(all.map((d) => d.category)).size;
+  const count = (c: string) => all.filter((d) => d.confidence === c).length;
+  const big = domain.length > 16 ? 56 : 80;
 
   return new ImageResponse(
     (
-      <OgFrame kicker="what does it run on?" footer="From public DNS, headers & HTML · every detection shows its evidence">
-        <div style={{ fontSize: 64, fontWeight: 700, letterSpacing: -2, lineHeight: 1 }}>{domain || "Underhood"}</div>
-        {p ? (
-          // Satori lays out fragments inline, so this needs a real column container.
-          <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-            <div style={{ fontSize: 26, color: OG.muted, marginTop: 10 }}>{`${shown.length} vendors detected · runs on:`}</div>
-            <div style={{ display: "flex", flexDirection: "column", marginTop: "auto", marginBottom: 12 }}>
-              {top.map((d) => (
-                <div key={d.service} style={{ display: "flex", alignItems: "baseline", borderBottom: `1px solid ${OG.rule}`, padding: "5px 0" }}>
-                  <span style={{ fontSize: 27, fontWeight: 700, width: 520 }}>{d.service}</span>
-                  <span style={{ fontSize: 22, color: OG.muted }}>{CATEGORY_LABELS[d.category]}</span>
-                </div>
-              ))}
+      <OgFrame>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", flex: 1, paddingRight: top.length ? 40 : 0 }}>
+          <OgBrand />
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ fontSize: big, fontWeight: 600, letterSpacing: -2, lineHeight: 1 }}>{domain || "underhood"}</div>
+            <div style={{ display: "flex", marginTop: 22, fontSize: 32, color: OG.muted }}>
+              {p ? (
+                <>
+                  runs on&nbsp;<span style={{ color: OG.ink, fontWeight: 700 }}>{`${all.length} vendors`}</span>&nbsp;{`across ${cats} categories`}
+                </>
+              ) : (
+                "See what any company runs on, from its public footprint."
+              )}
             </div>
           </div>
-        ) : (
-          <div style={{ fontSize: 30, color: OG.muted, marginTop: 20 }}>See what any company runs on, from its public footprint.</div>
+          {p && all.length > 0 ? (
+            <div style={{ display: "flex", height: 14, width: 480, gap: 3, borderRadius: 7, overflow: "hidden" }}>
+              <div style={{ flex: count("high"), background: OG.high }} />
+              <div style={{ flex: count("medium"), background: OG.medium }} />
+              <div style={{ flex: count("low"), background: OG.low }} />
+            </div>
+          ) : (
+            <div style={{ display: "flex", fontSize: 22, color: OG.muted }}>Public DNS, headers &amp; HTML · every detection shows its evidence</div>
+          )}
+        </div>
+        {top.length > 0 && (
+          <div style={{ width: 470, display: "flex", flexDirection: "column", justifyContent: "center", background: OG.card, border: `1px solid ${OG.rule}`, borderRadius: 20, padding: "12px 24px" }}>
+            {top.map((d, i) => (
+              <div key={d.service} style={{ display: "flex", alignItems: "center", gap: 16, padding: "13px 0", borderBottom: i < top.length - 1 ? `1px solid ${OG.rule}` : "none" }}>
+                <OgTile service={d.service} />
+                <span style={{ flex: 1, fontSize: 27, fontWeight: 700 }}>{d.service}</span>
+                <span style={{ fontSize: 17, color: OG.muted }}>{CATEGORY_SHORT[d.category]}</span>
+              </div>
+            ))}
+          </div>
         )}
       </OgFrame>
     ),

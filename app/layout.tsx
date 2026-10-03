@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import { Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import Link from "next/link";
+import { SiteHeader } from "@/components/site-header";
 import { SITE_URL, SOURCE_URL } from "@/lib/config";
 import "./globals.css";
 
-const grotesk = Archivo({ variable: "--font-grotesk", subsets: ["latin"], axes: ["wdth"] });
-const mono = IBM_Plex_Mono({ variable: "--font-plex-mono", subsets: ["latin"], weight: ["400", "500", "600"] });
+const sans = Instrument_Sans({ variable: "--font-instrument", subsets: ["latin"], axes: ["wdth"] });
+const mono = JetBrains_Mono({ variable: "--font-jetbrains", subsets: ["latin"], weight: ["400", "500", "600"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -14,24 +15,25 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
+/** Apply a saved theme before first paint; with none saved, CSS follows the system. */
+const THEME_SCRIPT = `try{var t=localStorage.getItem("underhood:theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={`${grotesk.variable} ${mono.variable} min-h-dvh`}>
-        <div className="mx-auto flex min-h-dvh max-w-5xl flex-col px-4 sm:px-6">
-          <header className="flex items-center justify-between border-b-2 border-rule-strong py-3 font-mono text-xs">
-            <Link href="/" className="font-semibold tracking-[0.2em] uppercase hover:text-accent">
-              Underhood
-            </Link>
-            <span className="text-muted">public-footprint teardown · v0.1</span>
-          </header>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
+      <body className={`${sans.variable} ${mono.variable} min-h-dvh`}>
+        <div className="mx-auto flex min-h-dvh max-w-[1240px] flex-col px-4 pt-4 sm:px-5">
+          <SiteHeader />
           <main className="flex-1">{children}</main>
-          <footer className="mt-16 flex flex-wrap justify-between gap-x-6 gap-y-2 border-t border-rule py-4 font-mono text-[11px] text-muted">
+          <footer className="mt-14 flex flex-wrap justify-between gap-x-6 gap-y-2 border-t border-rule px-1 py-[18px] text-[13px] text-muted">
             <span>Public signals only: headers, HTML, cookie names, DNS, IP owner.</span>
-            <nav className="flex gap-4">
-              <Link href="/findings" className="hover:text-accent">Findings</Link>
-              <Link href="/about" className="hover:text-accent">About &amp; opt-out</Link>
-              <a href={SOURCE_URL} className="hover:text-accent">Source</a>
+            <nav className="flex gap-[18px]">
+              <a href="/api/scan?domain=linear.app" className="hover:text-ink">API</a>
+              <Link href="/about" className="hover:text-ink">About &amp; opt-out</Link>
+              <a href={SOURCE_URL} className="hover:text-ink">Source</a>
             </nav>
           </footer>
         </div>

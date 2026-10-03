@@ -17,6 +17,22 @@ export const CATEGORY_LABELS: Record<Category, string> = {
 
 export const CATEGORY_ORDER = Object.keys(CATEGORY_LABELS) as Category[];
 
+/** One-word labels for chips and tight spaces. */
+export const CATEGORY_SHORT: Record<Category, string> = {
+  hosting: "Hosting",
+  dns: "DNS",
+  framework: "Frontend",
+  "email-workspace": "Email",
+  "email-sending": "Sending",
+  payments: "Payments",
+  analytics: "Analytics",
+  support: "Support",
+  auth: "Auth",
+  monitoring: "Monitoring",
+  collaboration: "Workspace",
+  other: "Other",
+};
+
 /**
  * webappanalyzer category id → our category. Order matters: a technology with
  * several categories gets the first one listed here. Unlisted categories (fonts,

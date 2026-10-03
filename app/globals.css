@@ -4,68 +4,82 @@
 @source "../components";
 
 :root {
-  --paper: #f3f1ea;
-  --paper-2: #ebe8df;
-  --ink: #141413;
-  --muted: #6a665d;
-  --rule: #cdc8bc;
-  --rule-strong: #141413;
-  --accent: #c93c0c;
-  --high: #1d6b3a;
-  --medium: #8a6d12;
-  --low: #7a756b;
-  /* Chart marks (validated: scripts/validate_palette.js, light + dark). */
-  --bar: #c93c0c;
-  --bar-muted: #857f72;
+  --paper: #f3f4f6;
+  --card: #ffffff;
+  --paper-2: #eceef2;
+  --ink: #0f1217;
+  --muted: #5a6370;
+  --rule: #e2e5ea;
+  --rule-strong: #cbd0d8;
+  --accent: #2f5bea;
+  --accent-soft: #e7edff;
+  --on-accent: #ffffff;
+  --high: #16803c;
+  --medium: #9a6700;
+  --low: #77808c;
+  --bar-muted: #b9c0ca;
+  /* Extra series colours for multi-line charts. */
+  --series-5: #7c3aed;
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #131312;
-    --paper-2: #1b1b19;
-    --ink: #ebe8e0;
-    --muted: #97928a;
-    --rule: #34322e;
-    --rule-strong: #ebe8e0;
-    --accent: #ff6d33;
-    --high: #5cc27f;
-    --medium: #d9b54a;
-    --low: #8f8a80;
-    --bar: #e8602b;
-    --bar-muted: #7b766b;
+    --paper: #0b0d10;
+    --card: #13161b;
+    --paper-2: #1b1f26;
+    --ink: #e8ebf0;
+    --muted: #8d96a4;
+    --rule: #22272f;
+    --rule-strong: #323944;
+    --accent: #7f9dff;
+    --accent-soft: #1a2340;
+  --on-accent: #0b0d10;
+    --high: #4fd17f;
+    --medium: #e6b84a;
+    --low: #8a929e;
+    --bar-muted: #3b424d;
+    --series-5: #b197fc;
+    color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --paper: #131312;
-  --paper-2: #1b1b19;
-  --ink: #ebe8e0;
-  --muted: #97928a;
-  --rule: #34322e;
-  --rule-strong: #ebe8e0;
-  --accent: #ff6d33;
-  --high: #5cc27f;
-  --medium: #d9b54a;
-  --low: #8f8a80;
-  --bar: #e8602b;
-  --bar-muted: #7b766b;
+  --paper: #0b0d10;
+  --card: #13161b;
+  --paper-2: #1b1f26;
+  --ink: #e8ebf0;
+  --muted: #8d96a4;
+  --rule: #22272f;
+  --rule-strong: #323944;
+  --accent: #7f9dff;
+  --accent-soft: #1a2340;
+  --on-accent: #0b0d10;
+  --high: #4fd17f;
+  --medium: #e6b84a;
+  --low: #8a929e;
+  --bar-muted: #3b424d;
+  --series-5: #b197fc;
+  color-scheme: dark;
 }
 
 @theme inline {
   --color-paper: var(--paper);
+  --color-card: var(--card);
   --color-paper-2: var(--paper-2);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-rule: var(--rule);
   --color-rule-strong: var(--rule-strong);
   --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
   --color-high: var(--high);
   --color-medium: var(--medium);
   --color-low: var(--low);
-  --color-bar: var(--bar);
   --color-bar-muted: var(--bar-muted);
-  --font-sans: var(--font-grotesk);
-  --font-mono: var(--font-plex-mono);
+  --font-sans: var(--font-instrument);
+  --font-mono: var(--font-jetbrains);
 }
 
 html {
@@ -75,22 +89,27 @@ html {
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
   background: var(--accent);
-  color: var(--paper);
+  color: var(--on-accent);
 }
 
-/* Small-caps style mono label used for section headers and table heads. */
-.label {
-  font-family: var(--font-plex-mono), ui-monospace, monospace;
-  font-size: 0.6875rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+input::placeholder {
   color: var(--muted);
+  opacity: 0.75;
+}
+
+/* White-tile surface with a 1px rule: every card in the UI. Layered so utilities can override it. */
+@layer components {
+  .card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+  }
 }
 
 details > summary {
@@ -100,14 +119,17 @@ details > summary {
 details > summary::-webkit-details-marker {
   display: none;
 }
-details[open] .chev {
-  transform: rotate(90deg);
+details[open] > summary .when-closed,
+details:not([open]) > summary .when-open {
+  display: none;
 }
 
-a:focus-visible,
-button:focus-visible,
-summary:focus-visible,
-input:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+@layer base {
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
 }
